@@ -27,143 +27,103 @@ const About = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
+        delayChildren: 0.2,
+        staggerChildren: 0.15
       }
     }
   }
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.5, ease: "easeOut" }
     }
   }
 
-  const stats = [
-    { number: "5+", label: "Years of Experience" },
-    { number: "M.S.", label: "Applied AI - Tec de Monterrey" },
-    { number: "92%", label: "RAG System Precision" },
-    { number: "<3%", label: "AI Hallucination Rate" }
-  ]
-
   return (
-    <section id="about" ref={ref} className="section-padding bg-gray-800">
+    <section id="about" ref={ref} className="py-24 bg-gray-800">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
-        className="container-max"
+        className="max-w-4xl mx-auto px-6"
       >
+        {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            About <span className="gradient-text">Me</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            About Me
           </h2>
-          <div className="w-24 h-1 bg-primary-500 mx-auto"></div>
+          <div className="w-16 h-1 bg-blue-500 mx-auto"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6">
-              Transforming industries with production-grade AI
-            </h3>
+        {/* Content */}
+        <div className="space-y-8">
+          <motion.p
+            variants={itemVariants}
+            className="text-gray-300 text-lg leading-relaxed"
+          >
+            I'm a <span className="text-white font-medium">Senior Software Engineer</span> with
+            a Master's degree in Applied Artificial Intelligence from{' '}
+            <span className="text-blue-400">Tecnológico de Monterrey</span>. My expertise lies
+            at the intersection of AI/ML systems and robust backend architectures.
+          </motion.p>
 
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Senior Software Engineer with a Master's in Applied AI from Tecnológico de Monterrey.
-              Recently completed a thesis project developing a Multimodal RAG system for the AEC
-              (Architecture, Engineering & Construction) industry that achieved 92% precision
-              and reduced hallucination rate from 15% to under 3%.
-            </p>
+          <motion.p
+            variants={itemVariants}
+            className="text-gray-300 text-lg leading-relaxed"
+          >
+            Recently, I led the development of a{' '}
+            <span className="text-white font-medium">Multimodal RAG system</span> for the
+            AEC (Architecture, Engineering & Construction) industry. The system achieved{' '}
+            <span className="text-blue-400">92% precision</span> and reduced hallucination
+            rates from 15% to under 3%, transforming how professionals interact with
+            technical documentation.
+          </motion.p>
 
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Experienced in building multi-agent RAG architectures with multimodal embeddings,
-              OCR processing, image descriptions, and adaptive orchestration. Specialized in
-              scalable backend systems with Java/Spring Boot and ML pipelines with Python.
-              Passionate about creating AI solutions that solve real industry problems.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mt-8">
-              {['Multimodal RAG', 'Computer Vision', 'Java/Spring', 'Python/ML'].map((value, index) => (
-                <motion.div
-                  key={value}
-                  initial={{ scale: 0 }}
-                  animate={isVisible ? { scale: 1 } : { scale: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
-                  className="glass-effect px-4 py-2 rounded-full text-sm font-medium"
-                >
-                  {value}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="relative">
-            <div className="relative">
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className="absolute inset-0 rounded-full border-2 border-primary-500 border-dashed opacity-20"
-              />
-
-              <div className="glass-effect rounded-2xl p-8 relative z-10">
-                <div className="grid grid-cols-2 gap-6">
-                  {stats.map((stat, index) => (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                      transition={{ delay: 0.7 + index * 0.1, type: "spring" }}
-                      className="text-center"
-                    >
-                      <motion.div
-                        initial={{ y: 20 }}
-                        animate={isVisible ? { y: 0 } : { y: 20 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
-                        className="text-3xl md:text-4xl font-bold gradient-text mb-2"
-                      >
-                        {stat.number}
-                      </motion.div>
-                      <div className="text-gray-300 text-sm font-medium">
-                        {stat.label}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <motion.p
+            variants={itemVariants}
+            className="text-gray-300 text-lg leading-relaxed"
+          >
+            I'm passionate about building production-grade AI solutions that solve real
+            industry problems. My toolkit includes multi-agent RAG architectures,
+            computer vision pipelines, and scalable backend systems with Java/Spring
+            and Python.
+          </motion.p>
         </div>
 
+        {/* Highlights */}
         <motion.div
           variants={itemVariants}
-          className="mt-16 text-center"
+          className="mt-16 grid md:grid-cols-3 gap-6"
         >
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary group"
-            onClick={() => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' })}
-          >
-            View my skills
-            <motion.span
-              className="inline-block ml-2"
-              whileHover={{ x: 5 }}
-              transition={{ type: "spring", stiffness: 400 }}
+          {[
+            {
+              icon: "🎓",
+              title: "Education",
+              text: "M.S. Applied AI - Tec de Monterrey"
+            },
+            {
+              icon: "🎯",
+              title: "Focus",
+              text: "Multimodal RAG & Production AI"
+            },
+            {
+              icon: "📍",
+              title: "Location",
+              text: "Monterrey, Mexico"
+            }
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="text-center p-6 bg-gray-900/50 rounded-xl border border-gray-700/50"
             >
-              ↓
-            </motion.span>
-          </motion.button>
+              <div className="text-3xl mb-3">{item.icon}</div>
+              <h3 className="text-white font-medium mb-1">{item.title}</h3>
+              <p className="text-gray-400 text-sm">{item.text}</p>
+            </div>
+          ))}
         </motion.div>
       </motion.div>
     </section>

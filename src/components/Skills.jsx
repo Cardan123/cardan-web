@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [hoveredSkill, setHoveredSkill] = useState(null)
   const ref = useRef()
 
   useEffect(() => {
@@ -23,33 +22,29 @@ const Skills = () => {
     return () => observer.disconnect()
   }, [])
 
-  const skills = {
-    "AI & Machine Learning": [
-      { name: "RAG Systems", level: 95, color: "from-purple-500 to-pink-600" },
-      { name: "LangChain", level: 90, color: "from-green-400 to-teal-600" },
-      { name: "OpenAI/LLMs", level: 92, color: "from-emerald-500 to-green-700" },
-      { name: "Computer Vision", level: 88, color: "from-blue-500 to-indigo-600" },
-      { name: "PyTorch", level: 85, color: "from-orange-500 to-red-600" },
-      { name: "HuggingFace", level: 88, color: "from-yellow-500 to-orange-500" },
-      { name: "Vector DBs", level: 90, color: "from-cyan-500 to-blue-600" }
-    ],
-    "Backend & Data": [
-      { name: "Python", level: 92, color: "from-blue-500 to-yellow-500" },
-      { name: "Java", level: 95, color: "from-orange-500 to-red-600" },
-      { name: "Spring Boot", level: 90, color: "from-green-500 to-green-700" },
-      { name: "PostgreSQL", level: 88, color: "from-blue-500 to-blue-700" },
-      { name: "MongoDB", level: 85, color: "from-green-600 to-green-800" },
-      { name: "REST APIs", level: 92, color: "from-purple-500 to-purple-700" }
-    ],
-    "Tools & Infrastructure": [
-      { name: "Git", level: 95, color: "from-orange-500 to-orange-700" },
-      { name: "Docker", level: 88, color: "from-blue-400 to-blue-600" },
-      { name: "AWS", level: 82, color: "from-yellow-500 to-orange-500" },
-      { name: "React", level: 85, color: "from-cyan-400 to-blue-600" },
-      { name: "CI/CD", level: 85, color: "from-gray-500 to-gray-700" },
-      { name: "MLOps", level: 80, color: "from-indigo-500 to-purple-600" }
-    ]
-  }
+  const skillCategories = [
+    {
+      title: "AI & Machine Learning",
+      icon: "🤖",
+      description: "Building production-grade AI systems with focus on RAG architectures and computer vision.",
+      skills: ["Multimodal RAG", "LangChain", "OpenAI/LLMs", "Computer Vision", "PyTorch", "Vector Databases"],
+      highlight: "92% precision achieved"
+    },
+    {
+      title: "Backend Development",
+      icon: "⚙️",
+      description: "Scalable backend systems and APIs with enterprise-grade reliability.",
+      skills: ["Java", "Spring Boot", "Python", "PostgreSQL", "MongoDB", "REST APIs"],
+      highlight: "100k+ daily transactions"
+    },
+    {
+      title: "Tools & Infrastructure",
+      icon: "🛠️",
+      description: "Modern DevOps practices and cloud infrastructure management.",
+      skills: ["Docker", "AWS", "Git", "CI/CD", "Linux", "MLOps"],
+      highlight: "End-to-end pipelines"
+    }
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -57,7 +52,7 @@ const Skills = () => {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.1
+        staggerChildren: 0.15
       }
     }
   }
@@ -68,132 +63,91 @@ const Skills = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   }
 
   return (
-    <section id="skills" ref={ref} className="section-padding bg-gray-900">
+    <section id="skills" ref={ref} className="py-24 bg-gray-900">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
-        className="container-max"
+        className="max-w-6xl mx-auto px-6"
       >
+        {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="gradient-text">Skills</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Technical Expertise
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Technologies and tools I master to build exceptional AI and software solutions
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Specialized in AI/ML systems and scalable backend architectures
           </p>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {Object.entries(skills).map(([category, skillList], categoryIndex) => (
+        {/* Skills Grid */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={category}
+              key={category.title}
               variants={itemVariants}
-              className="space-y-6"
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="bg-gray-800/50 border border-gray-700/50 rounded-2xl p-8 hover:border-blue-500/30 transition-all duration-300"
             >
-              <h3 className="text-2xl font-semibold text-center mb-8 gradient-text">
-                {category}
-              </h3>
+              {/* Category Header */}
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-4xl">{category.icon}</span>
+                <h3 className="text-xl font-semibold text-white">
+                  {category.title}
+                </h3>
+              </div>
 
-              <div className="space-y-6">
-                {skillList.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                    transition={{ delay: categoryIndex * 0.2 + index * 0.1 }}
-                    onHoverStart={() => setHoveredSkill(skill.name)}
-                    onHoverEnd={() => setHoveredSkill(null)}
-                    className="glass-effect p-6 rounded-xl cursor-pointer transform transition-all duration-300 hover:scale-105"
+              {/* Description */}
+              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                {category.description}
+              </p>
+
+              {/* Skills Tags */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 bg-gray-700/50 text-gray-300 text-sm rounded-lg border border-gray-600/30"
                   >
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-white font-medium">{skill.name}</span>
-                      <motion.span
-                        className="text-primary-400 font-bold"
-                        animate={{
-                          scale: hoveredSkill === skill.name ? 1.1 : 1,
-                          color: hoveredSkill === skill.name ? "#60a5fa" : "#3b82f6"
-                        }}
-                      >
-                        {skill.level}%
-                      </motion.span>
-                    </div>
-
-                    <div className="relative h-2 bg-gray-700 rounded-full overflow-hidden">
-                      <motion.div
-                        className={`absolute left-0 top-0 h-full bg-gradient-to-r ${skill.color} rounded-full`}
-                        initial={{ width: 0 }}
-                        animate={isVisible ? { width: `${skill.level}%` } : { width: 0 }}
-                        transition={{
-                          duration: 1.5,
-                          delay: categoryIndex * 0.2 + index * 0.1,
-                          ease: "easeOut"
-                        }}
-                      />
-
-                      <motion.div
-                        className="absolute right-0 top-0 h-full w-1 bg-white rounded-full opacity-60"
-                        initial={{ x: -100 }}
-                        animate={isVisible ? { x: `${(skill.level - 100)}%` } : { x: -100 }}
-                        transition={{
-                          duration: 1.5,
-                          delay: categoryIndex * 0.2 + index * 0.1 + 0.5,
-                          ease: "easeOut"
-                        }}
-                      />
-                    </div>
-
-                    <motion.div
-                      className="mt-3 text-gray-400 text-sm"
-                      animate={{
-                        opacity: hoveredSkill === skill.name ? 1 : 0,
-                        y: hoveredSkill === skill.name ? 0 : 10
-                      }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {skill.level >= 90 ? "Expert" :
-                       skill.level >= 80 ? "Advanced" :
-                       skill.level >= 70 ? "Intermediate" : "Basic"}
-                    </motion.div>
-                  </motion.div>
+                    {skill}
+                  </span>
                 ))}
+              </div>
+
+              {/* Highlight */}
+              <div className="pt-4 border-t border-gray-700/50">
+                <div className="flex items-center gap-2 text-blue-400 text-sm font-medium">
+                  <span>✓</span>
+                  <span>{category.highlight}</span>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Bottom Stats */}
         <motion.div
           variants={itemVariants}
-          className="text-center mt-16"
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
-          <div className="glass-effect p-8 rounded-2xl max-w-3xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4 gradient-text">
-              Exploring New Frontiers
-            </h3>
-            <p className="text-gray-300 mb-6">
-              AI evolves rapidly. Currently deepening my knowledge in:
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {['Agentic AI', 'Multi-Agent Systems', 'Fine-tuning LLMs', 'Graph RAG'].map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  initial={{ scale: 0 }}
-                  animate={isVisible ? { scale: 1 } : { scale: 0 }}
-                  transition={{ delay: 1.5 + index * 0.1, type: "spring" }}
-                  className="px-4 py-2 bg-primary-600/20 text-primary-300 rounded-full text-sm font-medium border border-primary-500/30"
-                >
-                  {tech}
-                </motion.span>
-              ))}
+          {[
+            { value: "5+", label: "Years Experience" },
+            { value: "M.S.", label: "Applied AI" },
+            { value: "<3%", label: "Hallucination Rate" },
+            { value: "F1: 0.91", label: "RAG Performance" }
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-gray-500 text-sm">{stat.label}</div>
             </div>
-          </div>
+          ))}
         </motion.div>
       </motion.div>
     </section>

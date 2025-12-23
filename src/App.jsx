@@ -1,90 +1,75 @@
 import { useState, useEffect } from 'react'
-import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
-import Timeline from './components/Timeline'
-import Testimonials from './components/Testimonials'
-import TechBlog from './components/TechBlog'
-import LoadingScreen from './components/LoadingScreen'
-import CyberBackground from './components/CyberBackground'
-import AdminLogin from './components/AdminLogin'
-import { BlogProvider } from './context/BlogContext'
-import { AuthProvider, useAuth } from './context/AuthContext'
 
-// Simple router sin dependencias
-const useRouter = () => {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+// Simple Header component
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname)
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
     }
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navigate = (path) => {
-    window.history.pushState({}, '', path)
-    setCurrentPath(path)
-  }
-
-  return { currentPath, navigate }
-}
-
-// Componente principal del portfolio
-const PortfolioApp = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const { currentPath, navigate } = useRouter()
-  const { isAdmin } = useAuth()
-
-  // Determinar el modo basado en la ruta
-  const isAdminRoute = currentPath === '/admin'
-  const isPublicView = !isAdminRoute // Vista pública por defecto
-  const isCyberMode = !isAdminRoute // Cyberpunk para público, simple para admin
-
-  // Si es ruta admin y no está autenticado, mostrar login
-  if (isAdminRoute && !isAdmin) {
-    return <AdminLogin onBack={() => navigate('/')} />
-  }
+  const navItems = [
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
+  ]
 
   return (
-    <>
-      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-gray-900/95 backdrop-blur-sm border-b border-gray-800' : 'bg-transparent'
+    }`}>
+      <nav className="max-w-6xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <a href="#hero" className="text-xl font-semibold text-white">
+            Carlos<span className="text-blue-400">.dev</span>
+          </a>
 
-      <div className={`min-h-screen bg-cyber-dark text-white ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500 relative`}>
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-gray-300 hover:text-white transition-colors text-sm"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
 
-        {/* Fondo cyberpunk solo en vista pública */}
-        {isCyberMode && <CyberBackground />}
-
-        <div className="relative z-10">
-          <Header isAdminRoute={isAdminRoute} navigate={navigate} />
-          <main>
-            <Hero isAdminRoute={isAdminRoute} />
-            <About isAdminRoute={isAdminRoute} />
-            <Skills isAdminRoute={isAdminRoute} />
-            <Timeline isAdminRoute={isAdminRoute} />
-            <Projects isAdminRoute={isAdminRoute} />
-            <TechBlog isAdminRoute={isAdminRoute} />
-            <Testimonials isAdminRoute={isAdminRoute} />
-            <Contact isAdminRoute={isAdminRoute} />
-          </main>
+          <a
+            href="mailto:carlosdanielvillena@gmail.com"
+            className="hidden md:inline-flex px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            Get in Touch
+          </a>
         </div>
-      </div>
-    </>
+      </nav>
+    </header>
   )
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <BlogProvider>
-        <PortfolioApp />
-      </BlogProvider>
-    </AuthProvider>
+    <div className="min-h-screen bg-gray-900 text-white">
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+    </div>
   )
 }
 
