@@ -26,96 +26,80 @@ const Timeline = () => {
   const experiences = [
     {
       id: 1,
-      year: "2024 - Presente",
-      title: "Senior Full Stack Developer",
-      company: "Tech Solutions Inc.",
-      location: "Remote",
-      description: "Liderazgo de equipo de desarrollo, arquitectura de aplicaciones escalables y mentoring de desarrolladores junior.",
-      technologies: ["React", "Node.js", "AWS", "Docker", "TypeScript"],
+      year: "2024 - Present",
+      title: "Master's in Applied Artificial Intelligence",
+      company: "Tecnológico de Monterrey",
+      location: "Monterrey, Mexico",
+      description: "Graduate program focused on production-grade AI systems, specializing in Multimodal RAG architectures for the AEC industry.",
+      technologies: ["Python", "LangChain", "PyTorch", "Computer Vision", "RAG", "MongoDB"],
       achievements: [
-        "Aumenté la performance del sistema en 40%",
-        "Lideré migración de monolito a microservicios",
-        "Mentoré a 5 desarrolladores junior"
+        "Developed Multimodal RAG system with 92% precision",
+        "Reduced AI hallucination rate from 15% to <3%",
+        "Technical rating of 9.3/10 on thesis project"
       ],
-      type: "work",
-      color: "from-blue-500 to-cyan-500"
+      type: "education",
+      color: "from-purple-500 to-pink-500"
     },
     {
       id: 2,
-      year: "2023",
-      title: "Certificación AWS Solutions Architect",
-      company: "Amazon Web Services",
-      location: "Online",
-      description: "Certificación profesional en diseño de arquitecturas escalables y seguras en AWS.",
-      technologies: ["AWS", "Lambda", "S3", "EC2", "RDS"],
+      year: "2024",
+      title: "Multimodal RAG System - AEC Industry",
+      company: "Master's Thesis Project",
+      location: "Tecnológico de Monterrey",
+      description: "Led development of a multi-agent RAG architecture for construction cost estimation, processing architectural blueprints and technical documents.",
+      technologies: ["SAM", "CLIP", "OCR", "LangChain", "Vector DBs", "OpenAI"],
       achievements: [
-        "Aprobé con puntuación del 92%",
-        "Especialización en serverless architecture",
-        "Implementé 10+ proyectos en AWS"
+        "80% reduction in bidding time (5 days to <1 day)",
+        "70% reduction in transcription errors",
+        "40% increase in operational efficiency"
       ],
-      type: "certification",
-      color: "from-orange-500 to-red-500"
+      type: "achievement",
+      color: "from-cyan-500 to-blue-500"
     },
     {
       id: 3,
       year: "2022 - 2024",
-      title: "Full Stack Developer",
-      company: "StartupXYZ",
-      location: "Ciudad, País",
-      description: "Desarrollo de MVP y producto completo para startup en crecimiento, desde 0 a 50k usuarios activos.",
-      technologies: ["React", "Python", "PostgreSQL", "Redis", "GraphQL"],
+      title: "Senior Software Engineer",
+      company: "Enterprise Solutions",
+      location: "Monterrey, Mexico",
+      description: "Backend development and architecture design for enterprise applications, focusing on scalable microservices and API design.",
+      technologies: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Kafka", "AWS"],
       achievements: [
-        "Construí la aplicación desde cero",
-        "Escalé la infraestructura para 50k usuarios",
-        "Implementé sistema de pagos completo"
+        "Architected microservices handling 100k+ daily transactions",
+        "Implemented CI/CD pipelines reducing deployment time by 60%",
+        "Led migration from monolith to microservices architecture"
       ],
       type: "work",
       color: "from-green-500 to-emerald-500"
     },
     {
       id: 4,
-      year: "2022",
-      title: "Hackathon Winner - Best Innovation",
-      company: "Global Dev Summit",
-      location: "Virtual Event",
-      description: "Primer lugar en hackathon internacional con solución innovadora para educación remota.",
-      technologies: ["React Native", "Socket.io", "MongoDB", "Express"],
+      year: "2020 - 2022",
+      title: "Full Stack Developer",
+      company: "Tech Startup",
+      location: "Monterrey, Mexico",
+      description: "End-to-end development of web applications, from database design to frontend implementation.",
+      technologies: ["React", "Node.js", "Python", "MongoDB", "Redis", "REST APIs"],
       achievements: [
-        "Desarrollé en 48 horas una app completa",
-        "Competí contra 200+ equipos",
-        "Premio de $5,000 USD"
-      ],
-      type: "achievement",
-      color: "from-purple-500 to-pink-500"
-    },
-    {
-      id: 5,
-      year: "2021 - 2022",
-      title: "Frontend Developer",
-      company: "Digital Agency Pro",
-      location: "Ciudad, País",
-      description: "Desarrollo de interfaces web modernas y responsivas para clientes Fortune 500.",
-      technologies: ["React", "Vue.js", "Sass", "Webpack", "Figma"],
-      achievements: [
-        "Entregué 20+ proyectos exitosos",
-        "Mejoré conversión de clientes en 25%",
-        "Implementé design system corporativo"
+        "Built and launched 3 production applications",
+        "Scaled platform to support 10k+ concurrent users",
+        "Implemented real-time features using WebSockets"
       ],
       type: "work",
       color: "from-indigo-500 to-blue-500"
     },
     {
-      id: 6,
-      year: "2020 - 2021",
-      title: "Ingeniería en Sistemas",
-      company: "Universidad Tecnológica",
-      location: "Ciudad, País",
-      description: "Graduado con honores, especialización en desarrollo de software y bases de datos.",
+      id: 5,
+      year: "2016 - 2020",
+      title: "Bachelor's in Computer Science",
+      company: "University",
+      location: "Mexico",
+      description: "Computer Science degree with focus on software engineering, algorithms, and database systems.",
       technologies: ["Java", "Python", "SQL", "Algorithms", "Data Structures"],
       achievements: [
-        "Graduado Summa Cum Laude",
-        "Tesis sobre Machine Learning",
-        "Presidente del club de programación"
+        "Graduated with honors",
+        "Senior project on distributed systems",
+        "Teaching assistant for programming courses"
       ],
       type: "education",
       color: "from-teal-500 to-green-500"
@@ -172,10 +156,10 @@ const Timeline = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Mi <span className="gradient-text">Trayectoria</span>
+            My <span className="gradient-text">Journey</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Un viaje de crecimiento constante, aprendizaje y logros en el mundo del desarrollo
+            A path of continuous growth, learning, and achievements in software engineering and AI
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -291,7 +275,7 @@ const Timeline = () => {
                     >
                       <div className="border-t border-gray-600 pt-4 mt-4">
                         <h4 className="text-sm font-semibold text-primary-400 mb-2">
-                          ✨ Logros destacados:
+                          ✨ Key achievements:
                         </h4>
                         <ul className="space-y-1">
                           {exp.achievements.map((achievement, achIndex) => (
@@ -355,10 +339,10 @@ const Timeline = () => {
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { number: "4+", label: "Años de experiencia", icon: "⏱️" },
-            { number: "100+", label: "Proyectos completados", icon: "🚀" },
-            { number: "5", label: "Certificaciones", icon: "📜" },
-            { number: "50k+", label: "Usuarios impactados", icon: "👥" }
+            { number: "5+", label: "Years of experience", icon: "⏱️" },
+            { number: "M.S.", label: "Applied AI - Tec de Monterrey", icon: "🎓" },
+            { number: "92%", label: "RAG System Precision", icon: "🎯" },
+            { number: "<3%", label: "AI Hallucination Rate", icon: "🧠" }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

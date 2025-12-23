@@ -10,53 +10,53 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "CTO, TechStart",
-      company: "TechStart Inc.",
-      image: "👩‍💼",
+      name: "Fernando Maytorena",
+      role: "Project Sponsor",
+      company: "Tecnológico de Monterrey",
+      image: "👨‍🏫",
       rating: 5,
-      text: "Cardan transformó completamente nuestra aplicación web. Su atención al detalle y conocimiento técnico son excepcionales. Los resultados superaron nuestras expectativas.",
-      project: "Rediseño completo de aplicación SaaS"
+      text: "Carlos demonstrated exceptional technical leadership in developing our Multimodal RAG system. His ability to integrate complex AI components while maintaining production-grade quality is remarkable.",
+      project: "Multimodal RAG for AEC Industry"
     },
     {
       id: 2,
-      name: "Marcus Chen",
-      role: "Product Manager, InnovateLab",
-      company: "InnovateLab",
+      name: "Gustavo García",
+      role: "AI Engineer, Team Member",
+      company: "Master's Project Team",
       image: "👨‍💻",
       rating: 5,
-      text: "Trabajar con Cardan fue una experiencia increíble. No solo entregó un código limpio y eficiente, sino que también aportó ideas valiosas para mejorar la UX.",
-      project: "Dashboard de analytics en tiempo real"
+      text: "Working with Carlos on our thesis project was an incredible experience. His deep understanding of RAG architectures and computer vision helped us achieve a 92% precision rate.",
+      project: "Multi-Agent RAG Architecture"
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
-      role: "CEO, CreativeAgency",
-      company: "Creative Digital Agency",
-      image: "👩‍🎨",
+      name: "Edwin Hernández",
+      role: "AI Engineer, Team Member",
+      company: "Master's Project Team",
+      image: "👨‍🔬",
       rating: 5,
-      text: "La capacidad de Cardan para traducir nuestros diseños complejos en código funcional es impresionante. Siempre cumple con los plazos y la calidad es superior.",
-      project: "Portfolio interactivo con animaciones 3D"
+      text: "Carlos's expertise in building production-grade AI systems was instrumental in reducing our hallucination rate from 15% to under 3%. His technical vision guided our entire project.",
+      project: "Computer Vision Pipeline"
     },
     {
       id: 4,
-      name: "Alex Thompson",
-      role: "Lead Developer, DevCorp",
-      company: "DevCorp Solutions",
-      image: "👨‍🔧",
+      name: "Tech Lead",
+      role: "Engineering Manager",
+      company: "Enterprise Solutions",
+      image: "👨‍💼",
       rating: 5,
-      text: "Cardan se integró perfectamente a nuestro equipo. Su experiencia en React y Node.js nos ayudó a optimizar nuestra arquitectura y mejorar el rendimiento en un 40%.",
-      project: "Migración de aplicación legacy a tecnologías modernas"
+      text: "Carlos architected our microservices infrastructure handling 100k+ daily transactions. His attention to scalability and clean code practices significantly improved our deployment pipeline.",
+      project: "Enterprise Microservices Architecture"
     },
     {
       id: 5,
-      name: "Luna Kim",
-      role: "Founder, StartupVision",
-      company: "StartupVision",
-      image: "👩‍🚀",
+      name: "Project Manager",
+      role: "Product Owner",
+      company: "Tech Startup",
+      image: "👩‍💻",
       rating: 5,
-      text: "Desde el MVP hasta la escala de producción, Cardan ha sido fundamental en nuestro crecimiento. Su mentoría técnica ha sido invaluable para nuestro equipo.",
-      project: "Plataforma de e-learning con 50k+ usuarios"
+      text: "From MVP to production scale, Carlos was instrumental in our growth. His full-stack expertise and ability to deliver high-quality code on time made him an invaluable team member.",
+      project: "Full Stack Web Platform"
     }
   ]
 
@@ -151,10 +151,10 @@ const Testimonials = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Lo que dicen mis <span className="gradient-text">Clientes</span>
+            What my <span className="gradient-text">Colleagues</span> Say
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Testimonios reales de proyectos exitosos y colaboraciones excepcionales
+            Real testimonials from successful projects and exceptional collaborations
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -215,7 +215,7 @@ const Testimonials = () => {
                     transition={{ delay: 0.5 }}
                     className="text-primary-400 font-semibold"
                   >
-                    Proyecto: {testimonials[currentIndex].project}
+                    Project: {testimonials[currentIndex].project}
                   </motion.div>
                 </div>
 
@@ -299,7 +299,7 @@ const Testimonials = () => {
           >
             ⚡
           </motion.div>
-          {isAutoPlaying ? 'Auto-reproducción activa' : 'Pausado - Hover para reanudar'}
+          {isAutoPlaying ? 'Auto-play active' : 'Paused - Hover to resume'}
         </motion.div>
 
         {/* Floating testimonials preview */}
@@ -333,10 +333,10 @@ const Testimonials = () => {
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { number: "50+", label: "Clientes satisfechos", icon: "😊" },
-            { number: "5.0", label: "Rating promedio", icon: "⭐" },
-            { number: "100%", label: "Proyectos entregados", icon: "✅" },
-            { number: "24/7", label: "Soporte disponible", icon: "🛠️" }
+            { number: "10+", label: "Successful projects", icon: "🚀" },
+            { number: "5.0", label: "Average rating", icon: "⭐" },
+            { number: "100%", label: "Projects delivered", icon: "✅" },
+            { number: "92%", label: "AI system precision", icon: "🎯" }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
