@@ -46,10 +46,10 @@ const About = () => {
   }
 
   const stats = [
-    { number: "3+", label: "Años de experiencia" },
-    { number: "50+", label: "Proyectos completados" },
-    { number: "15+", label: "Tecnologías dominadas" },
-    { number: "100%", label: "Satisfacción del cliente" }
+    { number: "5+", label: "Años de experiencia" },
+    { number: "M.S.", label: "Applied AI - Tec de Monterrey" },
+    { number: "92%", label: "Precision en sistemas RAG" },
+    { number: "<3%", label: "Tasa de alucinación AI" }
   ]
 
   return (
@@ -70,24 +70,25 @@ const About = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div variants={itemVariants} className="space-y-6">
             <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6">
-              Construyendo el futuro digital, una línea de código a la vez
+              Transformando industrias con AI de grado producción
             </h3>
 
             <p className="text-gray-300 text-lg leading-relaxed">
-              Soy un desarrollador apasionado con más de 3 años de experiencia creando
-              aplicaciones web modernas y escalables. Mi viaje comenzó con la curiosidad
-              por entender cómo funcionan las cosas, y se ha convertido en una carrera
-              dedicada a transformar ideas en realidades digitales.
+              Senior Software Engineer con Master's en Applied AI del Tecnológico de Monterrey.
+              Recientemente completé un proyecto de tesis desarrollando un sistema Multimodal RAG
+              para la industria AEC (Arquitectura, Ingeniería y Construcción) que logró 92% de precisión
+              y redujo la tasa de alucinación de 15% a menos del 3%.
             </p>
 
             <p className="text-gray-300 text-lg leading-relaxed">
-              Especializado en tecnologías como React, Node.js, Python y bases de datos
-              modernas. Me encanta trabajar en equipos colaborativos y siempre estoy
-              buscando nuevos desafíos que me permitan crecer profesionalmente.
+              Experiencia construyendo arquitecturas multi-agente RAG con embeddings multimodales,
+              procesamiento OCR, descripciones de imágenes y orquestación adaptativa. Especializado
+              en sistemas backend escalables con Java/Spring Boot y pipelines de ML con Python.
+              Apasionado por crear soluciones AI que resuelven problemas reales de la industria.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              {['Innovación', 'Calidad', 'Colaboración', 'Aprendizaje continuo'].map((value, index) => (
+              {['Multimodal RAG', 'Computer Vision', 'Java/Spring', 'Python/ML'].map((value, index) => (
                 <motion.div
                   key={value}
                   initial={{ scale: 0 }}

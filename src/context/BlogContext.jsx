@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer, useEffect } from 'react'
+import { createContext, useContext, useReducer, useEffect, useState } from 'react'
+import blogService from '../services/blogService'
 
 const BlogContext = createContext()
 
@@ -10,209 +11,57 @@ export const useBlog = () => {
   return context
 }
 
-// Estado inicial con posts de ejemplo
+// Estado inicial simplificado - los posts vienen del servicio
 const initialState = {
-  posts: [
-    {
-      id: 1,
-      title: "Construyendo mi PC Gamer 3D con CSS",
-      date: "2024-01-15",
-      category: "CSS & Animaciones",
-      readTime: "8 min",
-      preview: "Hoy documenté cómo crear transformaciones 3D complejas usando solo CSS. Los transform3d son increíbles para performance...",
-      content: `# El Viaje del CSS 3D
-
-Después de horas experimentando, logré crear un PC completamente animado usando transformaciones CSS. Lo más interesante fue descubrir que:
-
-\`\`\`css
-.pc-component {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-\`\`\`
-
-**Lo que aprendí:**
-- Las transformaciones 3D deben usar GPU acceleration
-- \`will-change: transform\` mejora significativamente la performance
-- Los efectos RGB se logran mejor con animaciones HSL
-
-**Próximos experimentos:**
-- WebGL integration
-- Particle systems más complejos
-- Real-time lighting effects
-
-## El Proceso de Desarrollo
-
-Inicié este proyecto porque quería agregar algo único a mi portfolio. La idea era crear una representación 3D de una PC gamer que fuera interactiva y visualmente impactante.
-
-### Desafíos Técnicos
-
-1. **Performance**: Las animaciones CSS pueden ser costosas
-2. **Compatibilidad**: No todos los navegadores soportan las mismas características
-3. **Responsive Design**: Hacer que el 3D funcione en móviles
-
-### Soluciones Implementadas
-
-Para resolver el problema de performance, implementé:
-- Hardware acceleration con \`transform3d(0,0,0)\`
-- Uso de \`will-change\` solo cuando es necesario
-- Optimización de repaint con \`backface-visibility: hidden\`
-
-## Conclusión
-
-Este proyecto me enseñó mucho sobre las capacidades modernas del CSS. Es increíble lo que se puede lograr sin JavaScript adicional.`,
-      tags: ["CSS3D", "Performance", "Animation"],
-      mood: "🤯",
-      codeSnippet: "transform3d(0, 0, 0)",
-      featured: true,
-      slug: "construyendo-pc-gamer-3d-css",
-      author: "Cardan",
-      views: 1247,
-      likes: 89,
-      comments: []
-    },
-    {
-      id: 2,
-      title: "React Hooks: useCallback vs useMemo",
-      date: "2024-01-12",
-      category: "React & Hooks",
-      readTime: "5 min",
-      preview: "Optimizando renders innecesarios en mi portfolio. La diferencia entre useCallback y useMemo es sutil pero crucial...",
-      content: `# Optimización de Renders
-
-Mientras optimizaba las animaciones del portfolio, me topé con renders innecesarios que afectaban la fluidez.
-
-\`\`\`jsx
-// Antes - Re-crea la función en cada render
-const handleClick = () => setCount(count + 1)
-
-// Después - Memoiza la función
-const handleClick = useCallback(() =>
-  setCount(c => c + 1), [])
-\`\`\`
-
-**Key insights:**
-- useCallback para funciones
-- useMemo para valores computados pesados
-- Dependency arrays son cruciales
-
-## Casos de Uso Reales
-
-En mi portfolio, encontré estos casos donde la memoización marcaba la diferencia:
-
-### useCallback
-- Event handlers para animaciones
-- Funciones pasadas como props a componentes hijos
-- Callbacks para efectos que se ejecutan frecuentemente
-
-### useMemo
-- Cálculos complejos de posiciones de partículas
-- Filtrado de arrays grandes
-- Transformaciones de datos costosas
-
-## Medición del Impacto
-
-Antes de la optimización:
-- 15-20 renders por segundo en hover
-- Lag visible en animaciones
-
-Después de la optimización:
-- 5-8 renders por segundo
-- Animaciones fluidas a 60fps`,
-      tags: ["React", "Performance", "Hooks"],
-      mood: "💡",
-      codeSnippet: "useCallback(() => {}, [])",
-      featured: false,
-      slug: "react-hooks-usecallback-usememo",
-      author: "Cardan",
-      views: 892,
-      likes: 67,
-      comments: []
-    },
-    {
-      id: 3,
-      title: "Intersection Observer + Framer Motion",
-      date: "2024-01-10",
-      category: "Performance",
-      readTime: "6 min",
-      preview: "Combinando Intersection Observer con Framer Motion para animaciones de scroll súper fluidas...",
-      content: `# Scroll Animations Done Right
-
-Las animaciones de scroll pueden ser costosas. Mi solución combina lo mejor de ambos mundos:
-
-\`\`\`jsx
-const [isVisible, setIsVisible] = useState(false)
-
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => setIsVisible(entry.isIntersecting),
-    { threshold: 0.3 }
-  )
-  // Observer logic
-}, [])
-\`\`\`
-
-Resultado: 60fps consistentes en todas las animaciones.
-
-## La Importancia del Threshold
-
-El threshold determina cuándo se activa la animación:
-- 0.1: Apenas visible
-- 0.3: 30% visible (mi favorito)
-- 0.5: Mitad visible
-- 1.0: Completamente visible
-
-Para mi portfolio elegí 0.3 porque da el mejor balance entre anticipación y performance.
-
-## Optimizaciones Adicionales
-
-1. **Disconnect del Observer**: Siempre limpiar en unmount
-2. **Root Margin**: Para pre-cargar animaciones
-3. **Throttling**: Para evitar updates excesivos`,
-      tags: ["Animation", "Performance", "UX"],
-      mood: "🚀",
-      codeSnippet: "IntersectionObserver()",
-      featured: false,
-      slug: "intersection-observer-framer-motion",
-      author: "Cardan",
-      views: 634,
-      likes: 45,
-      comments: []
-    }
-  ],
+  posts: [],
   currentView: 'list', // 'list', 'post', 'editor'
   currentPost: null,
   isEditorOpen: false,
   searchTerm: '',
   selectedCategory: 'all',
-  sortBy: 'date' // 'date', 'views', 'likes'
+  sortBy: 'date', // 'date', 'views', 'likes'
+  loading: false,
+  error: null,
+  stats: {
+    totalPosts: 0,
+    publishedPosts: 0,
+    totalViews: 0,
+    totalLikes: 0,
+    averageViews: 0
+  }
 }
 
 // Reducer para manejar las acciones del blog
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case 'SET_LOADING':
+      return { ...state, loading: action.payload }
+
+    case 'SET_ERROR':
+      return { ...state, error: action.payload, loading: false }
+
     case 'SET_VIEW':
       return { ...state, currentView: action.payload }
 
     case 'SET_CURRENT_POST':
       return { ...state, currentPost: action.payload, currentView: 'post' }
 
-    case 'ADD_POST':
-      const newPost = {
-        ...action.payload,
-        id: Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        author: 'Cardan',
-        views: 0,
-        likes: 0,
-        comments: [],
-        slug: generateSlug(action.payload.title)
-      }
+    case 'LOAD_POSTS':
       return {
         ...state,
-        posts: [newPost, ...state.posts],
+        posts: action.payload,
+        loading: false,
+        error: null
+      }
+
+    case 'ADD_POST':
+      return {
+        ...state,
+        posts: [action.payload, ...state.posts],
         currentView: 'list',
-        isEditorOpen: false
+        isEditorOpen: false,
+        loading: false,
+        error: null
       }
 
     case 'UPDATE_POST':
@@ -220,9 +69,11 @@ const blogReducer = (state, action) => {
         ...state,
         posts: state.posts.map(post =>
           post.id === action.payload.id
-            ? { ...post, ...action.payload.updates }
+            ? action.payload
             : post
-        )
+        ),
+        loading: false,
+        error: null
       }
 
     case 'DELETE_POST':
@@ -230,7 +81,9 @@ const blogReducer = (state, action) => {
         ...state,
         posts: state.posts.filter(post => post.id !== action.payload),
         currentView: 'list',
-        currentPost: null
+        currentPost: null,
+        loading: false,
+        error: null
       }
 
     case 'TOGGLE_EDITOR':
@@ -245,28 +98,28 @@ const blogReducer = (state, action) => {
     case 'SET_SORT_BY':
       return { ...state, sortBy: action.payload }
 
-    case 'INCREMENT_VIEWS':
+    case 'SET_STATS':
+      return { ...state, stats: action.payload }
+
+    case 'INCREMENT_POST_VIEWS':
       return {
         ...state,
         posts: state.posts.map(post =>
-          post.id === action.payload
-            ? { ...post, views: post.views + 1 }
+          post.id === action.payload.id
+            ? { ...post, views: action.payload.views }
             : post
         )
       }
 
-    case 'TOGGLE_LIKE':
+    case 'TOGGLE_POST_LIKE':
       return {
         ...state,
         posts: state.posts.map(post =>
-          post.id === action.payload
-            ? { ...post, likes: post.likes + (post.liked ? -1 : 1), liked: !post.liked }
+          post.id === action.payload.id
+            ? { ...post, likes: action.payload.likes }
             : post
         )
       }
-
-    case 'LOAD_POSTS':
-      return { ...state, posts: action.payload }
 
     default:
       return state
@@ -286,68 +139,190 @@ const generateSlug = (title) => {
 export const BlogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(blogReducer, initialState)
 
-  // Persistir en localStorage
+  // Cargar posts al inicializar
   useEffect(() => {
-    const savedPosts = localStorage.getItem('blog-posts')
-    if (savedPosts) {
-      dispatch({ type: 'LOAD_POSTS', payload: JSON.parse(savedPosts) })
+    const initializeData = async () => {
+      try {
+        dispatch({ type: 'SET_LOADING', payload: true })
+        const posts = await blogService.getPosts({ published: true })
+        dispatch({ type: 'LOAD_POSTS', payload: posts })
+
+        const stats = await blogService.getStats()
+        dispatch({ type: 'SET_STATS', payload: stats })
+      } catch (error) {
+        dispatch({ type: 'SET_ERROR', payload: error.message })
+      }
     }
+
+    initializeData()
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem('blog-posts', JSON.stringify(state.posts))
-  }, [state.posts])
+  // Funciones del servicio
+  const loadPosts = async (filters = {}) => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true })
 
-  // Filtrar y ordenar posts
+      // Aplicar filtros del estado actual si no se proporcionan
+      const appliedFilters = {
+        published: true, // Solo posts publicados por defecto
+        search: state.searchTerm || filters.search,
+        tags: filters.tags,
+        ...filters
+      }
+
+      const posts = await blogService.getPosts(appliedFilters)
+      dispatch({ type: 'LOAD_POSTS', payload: posts })
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message })
+    }
+  }
+
+  const loadStats = async () => {
+    try {
+      const stats = await blogService.getStats()
+      dispatch({ type: 'SET_STATS', payload: stats })
+    } catch (error) {
+      console.error('Error loading stats:', error)
+    }
+  }
+
+  const createPost = async (postData) => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true })
+      const newPost = await blogService.createPost(postData)
+      dispatch({ type: 'ADD_POST', payload: newPost })
+      await loadStats() // Actualizar estadísticas
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message })
+    }
+  }
+
+  const updatePost = async (id, updates) => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true })
+      const updatedPost = await blogService.updatePost(id, updates)
+      dispatch({ type: 'UPDATE_POST', payload: updatedPost })
+      await loadStats()
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message })
+    }
+  }
+
+  const deletePost = async (id) => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true })
+      await blogService.deletePost(id)
+      dispatch({ type: 'DELETE_POST', payload: id })
+      await loadStats()
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message })
+    }
+  }
+
+  const getPostById = async (id) => {
+    try {
+      const post = await blogService.getPostById(id)
+      dispatch({ type: 'INCREMENT_POST_VIEWS', payload: { id, views: post.views } })
+      return post
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message })
+      return null
+    }
+  }
+
+  const toggleLike = async (id) => {
+    try {
+      const newLikes = await blogService.toggleLike(id)
+      dispatch({ type: 'TOGGLE_POST_LIKE', payload: { id, likes: newLikes } })
+    } catch (error) {
+      console.error('Error toggling like:', error)
+    }
+  }
+
+  const getTags = async () => {
+    try {
+      return await blogService.getTags()
+    } catch (error) {
+      console.error('Error getting tags:', error)
+      return []
+    }
+  }
+
+  // Filtrar y ordenar posts en el frontend
   const getFilteredPosts = () => {
     let filtered = state.posts
 
-    // Filtrar por categoría
+    // Filtrar por categoría (mapear al nuevo formato de tags)
     if (state.selectedCategory !== 'all') {
-      filtered = filtered.filter(post => post.category === state.selectedCategory)
+      filtered = filtered.filter(post =>
+        post.tags?.includes(state.selectedCategory)
+      )
     }
 
-    // Filtrar por búsqueda
+    // La búsqueda ya se maneja en el servicio, pero podemos filtrar localmente también
     if (state.searchTerm) {
       const term = state.searchTerm.toLowerCase()
       filtered = filtered.filter(post =>
         post.title.toLowerCase().includes(term) ||
         post.content.toLowerCase().includes(term) ||
-        post.tags.some(tag => tag.toLowerCase().includes(term))
+        post.excerpt?.toLowerCase().includes(term) ||
+        post.tags?.some(tag => tag.toLowerCase().includes(term))
       )
     }
 
     // Ordenar
     switch (state.sortBy) {
       case 'views':
-        return filtered.sort((a, b) => b.views - a.views)
+        return filtered.sort((a, b) => (b.views || 0) - (a.views || 0))
       case 'likes':
-        return filtered.sort((a, b) => b.likes - a.likes)
+        return filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0))
       case 'date':
       default:
-        return filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+        return filtered.sort((a, b) =>
+          new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date)
+        )
     }
   }
+
+  // Actualizar posts cuando cambien los filtros - Removed to prevent infinite loops
+  // Los filtros ahora se manejan en getFilteredPosts()
 
   const value = {
     ...state,
     dispatch,
     filteredPosts: getFilteredPosts(),
 
-    // Actions
+    // Service actions
+    loadPosts,
+    loadStats,
+    createPost,
+    updatePost,
+    deletePost,
+    getPostById,
+    toggleLike,
+    getTags,
+
+    // Legacy compatibility
+    addPost: createPost, // Para compatibilidad con componentes existentes
+
+    // UI actions
     setView: (view) => dispatch({ type: 'SET_VIEW', payload: view }),
-    setCurrentPost: (post) => {
-      dispatch({ type: 'INCREMENT_VIEWS', payload: post.id })
-      dispatch({ type: 'SET_CURRENT_POST', payload: post })
+    setCurrentPost: async (post) => {
+      // Si es un ID, cargar el post completo
+      if (typeof post === 'string') {
+        const fullPost = await getPostById(post)
+        if (fullPost) {
+          dispatch({ type: 'SET_CURRENT_POST', payload: fullPost })
+        }
+      } else {
+        dispatch({ type: 'SET_CURRENT_POST', payload: post })
+      }
     },
-    addPost: (post) => dispatch({ type: 'ADD_POST', payload: post }),
-    updatePost: (id, updates) => dispatch({ type: 'UPDATE_POST', payload: { id, updates } }),
-    deletePost: (id) => dispatch({ type: 'DELETE_POST', payload: id }),
     toggleEditor: () => dispatch({ type: 'TOGGLE_EDITOR' }),
     setSearchTerm: (term) => dispatch({ type: 'SET_SEARCH_TERM', payload: term }),
     setCategory: (category) => dispatch({ type: 'SET_CATEGORY', payload: category }),
     setSortBy: (sortBy) => dispatch({ type: 'SET_SORT_BY', payload: sortBy }),
-    toggleLike: (id) => dispatch({ type: 'TOGGLE_LIKE', payload: id })
+    clearError: () => dispatch({ type: 'SET_ERROR', payload: null })
   }
 
   return (

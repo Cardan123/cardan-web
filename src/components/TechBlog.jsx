@@ -1,11 +1,14 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { useBlog } from '../context/BlogContext'
+import { useAuth } from '../context/AuthContext'
 import BlogPost from './BlogPost'
 import BlogEditor from './BlogEditor'
 import CascadeBackground from './CascadeBackground'
 
-const TechBlog = () => {
+const TechBlog = ({ isAdminRoute }) => {
+  const { isAdmin } = useAuth()
+  const isPublicView = !isAdminRoute // Público cyberpunk, admin simple
   const {
     currentView,
     currentPost,
@@ -96,9 +99,11 @@ const TechBlog = () => {
   }
 
   return (
-    <section id="blog" ref={ref} className="section-padding bg-playstation-black relative overflow-hidden min-h-screen">
-      {/* Cascade Background */}
-      <CascadeBackground intensity="medium" colors="blue" />
+    <section id="blog" ref={ref} className={`section-padding relative overflow-hidden min-h-screen ${
+      isPublicView ? 'bg-gray-900' : 'bg-gray-800'
+    }`}>
+      {/* Cascade Background - Solo en modo cyberpunk (público) */}
+      {isPublicView && <CascadeBackground intensity="medium" colors="blue" />}
 
       <motion.div
         variants={containerVariants}
@@ -107,24 +112,40 @@ const TechBlog = () => {
         className="container-max relative z-10"
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Diario <span className="gradient-text">Técnico</span>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
+            isPublicView ? 'text-white' : 'text-white'
+          }`}>
+            {isPublicView ? (
+              <>Blog <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Técnico</span></>
+            ) : (
+              <>Diario <span className="gradient-text">Técnico</span></>
+            )}
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className={`text-lg max-w-2xl mx-auto ${
+            isPublicView ? 'text-gray-300' : 'text-gray-300'
+          }`}>
             Documentando mi viaje como desarrollador. Experimentos, aprendizajes y reflexiones sobre código, tecnología y crecimiento profesional.
           </p>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
+          <div className={`w-24 h-1 mx-auto mt-4 ${
+            isPublicView ? 'bg-blue-500' : 'bg-primary-500'
+          }`}></div>
 
-          {/* New Entry Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleEditor}
-            className="mt-8 btn-primary flex items-center gap-2 mx-auto"
-          >
-            <span>✍️</span>
-            Nueva entrada
-          </motion.button>
+          {/* New Entry Button - Solo para administradores */}
+          {isAdmin && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleEditor}
+              className={`mt-8 flex items-center gap-2 mx-auto ${
+                isPublicView
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300'
+                  : 'btn-primary'
+              }`}
+            >
+              <span>✍️</span>
+              Nueva entrada
+            </motion.button>
+          )}
         </motion.div>
 
         {/* Search and Filters */}

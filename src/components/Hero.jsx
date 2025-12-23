@@ -3,11 +3,17 @@ import { useEffect, useState } from 'react'
 import PCGamer3D from './PCGamer3D'
 import { CodeParticleSystem, MatrixParticleSystem } from './ParticleSystem'
 
-const Hero = () => {
+const Hero = ({ isAdminRoute }) => {
   const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showMatrix, setShowMatrix] = useState(false)
-  const fullText = "Desarrollador Full Stack & Creative Coder"
+
+  const isPublicView = !isAdminRoute
+  const isCyberMode = !isAdminRoute // Cyberpunk para público, simple para admin
+
+  const fullText = isPublicView
+    ? "Senior Software Engineer • AI/ML Specialist"
+    : "SENIOR.ENGINEER // AI.ML.SPECIALIST"
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
@@ -53,17 +59,25 @@ const Hero = () => {
   }
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-playstation-black via-playstation-blue to-playstation-gray">
-      {/* Particle Systems */}
-      <CodeParticleSystem />
-      {showMatrix && <MatrixParticleSystem />}
+    <section id="hero" className={`min-h-screen flex items-center justify-center relative overflow-hidden ${
+      isPublicView
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+        : 'bg-gradient-to-br from-cyber-dark via-cyber-gray to-cyber-dark'
+    }`}>
+      {/* Particle Systems - Solo en modo cyberpunk */}
+      {isCyberMode && (
+        <>
+          <CodeParticleSystem />
+          {showMatrix && <MatrixParticleSystem />}
+        </>
+      )}
 
       {/* Enhanced Background Animation */}
       <div className="absolute inset-0">
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-accent-cyan rounded-full"
+            className="absolute w-1 h-1 bg-cyber-cyan rounded-full"
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
@@ -85,7 +99,7 @@ const Hero = () => {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={`geo-${i}`}
-            className="absolute border border-accent-cyan/20"
+            className="absolute border border-cyber-cyan/20"
             style={{
               width: 20 + Math.random() * 40,
               height: 20 + Math.random() * 40,
@@ -121,46 +135,95 @@ const Hero = () => {
               className="mb-8"
             >
               <motion.h1
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
+                className={`text-4xl md:text-6xl lg:text-7xl font-bold mb-4 ${
+                  isPublicView ? 'text-white' : 'font-cyber'
+                }`}
                 animate={floatingAnimation}
               >
-                Hola, soy{' '}
-                <span className="gradient-text">
-                  Cardan
-                </span>
+                {isPublicView ? (
+                  <>
+                    Hola, soy{' '}
+                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      Cardan
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-gray-400">&gt; INITIALIZING{' '}</span>
+                    <span className="cyber-title neon-text glitch-effect" data-text="CARDAN">
+                      CARDAN
+                    </span>
+                    <span className="text-cyber-cyan">_</span>
+                  </>
+                )}
               </motion.h1>
 
-              {/* Interactive greeting */}
-              <motion.div
-                className="text-lg md:text-xl text-gray-400 mb-4 cursor-pointer"
-                onClick={() => setShowMatrix(!showMatrix)}
-                whileHover={{ scale: 1.05, color: "#00ffff" }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {showMatrix ? "🔗 Modo Matrix Activado" : "👋 Click para activar Matrix Mode"}
-              </motion.div>
+              {/* Interactive greeting - Solo en modo cyberpunk */}
+              {isCyberMode && (
+                <motion.div
+                  className="text-lg md:text-xl text-gray-400 mb-4 cursor-pointer font-matrix border border-cyber-cyan/30 px-4 py-2 rounded hover:bg-cyber-cyan/10"
+                  onClick={() => setShowMatrix(!showMatrix)}
+                  whileHover={{ scale: 1.05, borderColor: "#ff0080" }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {showMatrix ? "[✓] MATRIX.MODE = ACTIVE" : "[!] CLICK_TO_ACTIVATE_MATRIX"}
+                </motion.div>
+              )}
+
+              {/* Greeting profesional para vista pública */}
+              {isPublicView && (
+                <motion.div
+                  variants={itemVariants}
+                  className="text-lg md:text-xl text-gray-300 mb-4"
+                >
+                  👋 Bienvenido a mi portfolio digital
+                </motion.div>
+              )}
             </motion.div>
 
             <motion.div
               variants={itemVariants}
               className="mb-8 h-16 flex items-center justify-center lg:justify-start"
             >
-              <h2 className="text-xl md:text-3xl lg:text-4xl text-gray-300 font-light">
-                {displayText}
+              <h2 className={`text-xl md:text-3xl lg:text-4xl font-light ${
+                isPublicView
+                  ? 'text-gray-200'
+                  : 'text-cyber-cyan font-cyber tracking-wider'
+              }`}>
+                {!isPublicView && <span className="text-gray-500">$</span>} {displayText}
                 <motion.span
                   animate={{ opacity: [1, 0] }}
                   transition={{ duration: 0.8, repeat: Infinity }}
-                  className="inline-block w-1 h-6 md:h-8 bg-accent-cyan ml-1"
+                  className={`inline-block w-1 h-6 md:h-8 ml-1 ${
+                    isPublicView
+                      ? 'bg-blue-400'
+                      : 'bg-cyber-cyan shadow-neon-sm'
+                  }`}
                 />
               </h2>
             </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              className={`text-lg md:text-xl mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed ${
+                isPublicView
+                  ? 'text-gray-300'
+                  : 'text-gray-400 font-cyber'
+              }`}
             >
-              Especializado en crear experiencias web modernas y funcionales.
-              Apasionado por el código limpio, las mejores prácticas y las tecnologías de vanguardia.
+              {isPublicView ? (
+                <>
+                  Master's in Applied AI from Tecnológico de Monterrey. Building production-grade
+                  Multimodal RAG systems and scalable backend architectures with Java/Spring.
+                  Passionate about transforming complex problems into elegant AI-powered solutions.
+                </>
+              ) : (
+                <>
+                  <span className="text-cyber-pink">[DEPLOYING]</span> Multimodal RAG architectures<br/>
+                  <span className="text-cyber-cyan">[PROCESSING]</span> Computer Vision + NLP pipelines<br/>
+                  <span className="text-cyber-green">[OPTIMIZING]</span> Production AI systems
+                </>
+              )}
             </motion.p>
 
             <motion.div
@@ -168,33 +231,48 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center"
             >
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)" }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: isPublicView
+                    ? "0 10px 25px rgba(59, 130, 246, 0.3)"
+                    : "0 10px 25px rgba(0, 255, 255, 0.3)"
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary group relative overflow-hidden"
+                className={isPublicView
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  : "btn-cyber-filled"
+                }
                 onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
               >
-                <span className="relative z-10">Ver mis proyectos</span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-600"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
+                <span className="relative z-10">
+                  {isPublicView ? "Ver mis proyectos" : "> EXECUTE_PROJECTS.EXE"}
+                </span>
+                {!isPublicView && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-cyber-pink to-cyber-cyan opacity-20"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "0%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-outline group"
+                className={isPublicView
+                  ? "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
+                  : "btn-cyber group"
+                }
                 onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
               >
-                Contactáme
+                {isPublicView ? "Contactáme" : "INIT_CONTACT.SH"}
                 <motion.span
                   className="inline-block ml-2"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  →
+                  {isPublicView ? "→" : ">>"}
                 </motion.span>
               </motion.button>
             </motion.div>
@@ -211,12 +289,12 @@ const Hero = () => {
 
             {/* Floating tech icons around PC */}
             {[
-              { icon: "⚛️", name: "React", delay: 0 },
-              { icon: "📱", name: "Mobile", delay: 0.2 },
-              { icon: "🎨", name: "Design", delay: 0.4 },
-              { icon: "⚡", name: "Performance", delay: 0.6 },
-              { icon: "🛠️", name: "Tools", delay: 0.8 },
-              { icon: "🚀", name: "Deploy", delay: 1 }
+              { icon: "🤖", name: "AI/ML", delay: 0 },
+              { icon: "🧠", name: "RAG", delay: 0.2 },
+              { icon: "👁️", name: "Computer Vision", delay: 0.4 },
+              { icon: "☕", name: "Java", delay: 0.6 },
+              { icon: "🍃", name: "Spring", delay: 0.8 },
+              { icon: "🐍", name: "Python", delay: 1 }
             ].map((tech, index) => (
               <motion.div
                 key={tech.name}

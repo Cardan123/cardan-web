@@ -27,77 +27,77 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "E-commerce Moderno",
-      description: "Plataforma de comercio electrónico completa con pasarela de pagos, gestión de inventario y panel de administración.",
-      category: "fullstack",
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      title: "Multimodal RAG - AEC Industry",
+      description: "Sistema de RAG multimodal para estimación de costos en construcción. Arquitectura multi-agente con embeddings multimodales, OCR, y procesamiento de imágenes. Precisión 92%, F1-Score 0.91, reducción de alucinaciones de 15% a <3%.",
+      category: "ai",
+      technologies: ["Python", "LangChain", "SAM", "CLIP", "MongoDB", "OCR"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
-      featured: true
+      codeUrl: "https://github.com/cardan",
+      featured: true,
+      metrics: { precision: "0.92", recall: "0.90", f1: "0.91" }
     },
     {
       id: 2,
-      title: "Dashboard Analytics",
-      description: "Dashboard interactivo para visualización de datos con gráficos en tiempo real y reportes personalizados.",
-      category: "frontend",
-      technologies: ["React", "D3.js", "Tailwind", "API REST"],
+      title: "Multi-Agent RAG Architecture",
+      description: "Sistema de orquestación adaptativa con planning layer inteligente, reranking condicional y reflection loops. Redujo tiempo de licitación de 5 días a <1 día (80% mejora).",
+      category: "ai",
+      technologies: ["Python", "LangChain", "Vector DBs", "OpenAI", "Gradio"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
+      codeUrl: "https://github.com/cardan",
       featured: true
     },
     {
       id: 3,
-      title: "API RESTful",
-      description: "API robusta para gestión de usuarios con autenticación JWT, rate limiting y documentación completa.",
-      category: "backend",
-      technologies: ["Node.js", "Express", "MongoDB", "JWT"],
+      title: "Computer Vision Pipeline",
+      description: "Pipeline de procesamiento de imágenes con Segment Anything Model (SAM) y CLIP para extracción de información de planos arquitectónicos y documentos técnicos.",
+      category: "ai",
+      technologies: ["PyTorch", "SAM", "CLIP", "OpenCV", "Tesseract"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
-      featured: false
+      codeUrl: "https://github.com/cardan",
+      featured: true
     },
     {
       id: 4,
-      title: "App de Tareas",
-      description: "Aplicación de gestión de tareas con funcionalidades de colaboración en tiempo real y notificaciones.",
-      category: "fullstack",
-      technologies: ["Next.js", "Socket.io", "Prisma", "PostgreSQL"],
+      title: "Microservicios Backend",
+      description: "Sistema de microservicios enterprise con Spring Boot, gestión de transacciones distribuidas, autenticación JWT y documentación OpenAPI.",
+      category: "backend",
+      technologies: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Kafka"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
+      codeUrl: "https://github.com/cardan",
       featured: false
     },
     {
       id: 5,
-      title: "Landing Page Creativa",
-      description: "Página de aterrizaje con animaciones avanzadas y diseño responsivo para una agencia de marketing.",
-      category: "frontend",
-      technologies: ["React", "Framer Motion", "Tailwind", "GSAP"],
+      title: "REST API Enterprise",
+      description: "API RESTful segura con Spring Security, transacciones ACID, rate limiting, caching distribuido y monitoreo con Prometheus.",
+      category: "backend",
+      technologies: ["Java", "Spring Security", "Redis", "JWT", "Prometheus"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
+      codeUrl: "https://github.com/cardan",
       featured: false
     },
     {
       id: 6,
-      title: "Sistema de Chat",
-      description: "Sistema de chat en tiempo real con salas privadas, emojis y compartición de archivos.",
-      category: "fullstack",
-      technologies: ["React", "Socket.io", "Express", "MongoDB"],
+      title: "Data Pipeline MLOps",
+      description: "Pipeline de datos end-to-end para entrenamiento y deployment de modelos ML con versionamiento de datos y modelos.",
+      category: "ai",
+      technologies: ["Python", "MLflow", "DVC", "Docker", "AWS"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "#",
+      codeUrl: "https://github.com/cardan",
       featured: false
     }
   ]
 
   const categories = [
     { id: 'all', name: 'Todos', count: projects.length },
-    { id: 'frontend', name: 'Frontend', count: projects.filter(p => p.category === 'frontend').length },
-    { id: 'backend', name: 'Backend', count: projects.filter(p => p.category === 'backend').length },
-    { id: 'fullstack', name: 'Full Stack', count: projects.filter(p => p.category === 'fullstack').length }
+    { id: 'ai', name: 'AI/ML', count: projects.filter(p => p.category === 'ai').length },
+    { id: 'backend', name: 'Backend', count: projects.filter(p => p.category === 'backend').length }
   ]
 
   const filteredProjects = selectedCategory === 'all'
@@ -141,7 +141,7 @@ const Projects = () => {
             Mis <span className="gradient-text">Proyectos</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Una selección de proyectos que muestran mis habilidades y experiencia en el desarrollo web
+            Proyectos de AI/ML y sistemas backend de grado producción con métricas de impacto real
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -204,7 +204,7 @@ const Projects = () => {
                   className="w-full h-full bg-gradient-to-br from-primary-400/10 to-purple-400/10 flex items-center justify-center"
                 >
                   <div className="text-6xl text-primary-400/50">
-                    {project.category === 'frontend' ? '🎨' :
+                    {project.category === 'ai' ? '🤖' :
                      project.category === 'backend' ? '⚙️' : '🚀'}
                   </div>
                 </motion.div>

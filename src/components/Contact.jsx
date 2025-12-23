@@ -57,26 +57,26 @@ const Contact = () => {
     {
       icon: '📧',
       title: 'Email',
-      value: 'cardan@example.com',
-      link: 'mailto:cardan@example.com'
-    },
-    {
-      icon: '📱',
-      title: 'Teléfono',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
-    },
-    {
-      icon: '📍',
-      title: 'Ubicación',
-      value: 'Ciudad, País',
-      link: '#'
+      value: 'cardan.dev@gmail.com',
+      link: 'mailto:cardan.dev@gmail.com'
     },
     {
       icon: '💼',
       title: 'LinkedIn',
-      value: '/in/cardan',
+      value: 'Connect with me',
       link: 'https://linkedin.com/in/cardan'
+    },
+    {
+      icon: '🐙',
+      title: 'GitHub',
+      value: 'github.com/cardan',
+      link: 'https://github.com/cardan'
+    },
+    {
+      icon: '📍',
+      title: 'Ubicación',
+      value: 'Monterrey, México',
+      link: '#'
     }
   ]
 
@@ -119,10 +119,10 @@ const Contact = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Hablemos <span className="gradient-text">Juntos</span>
+            Let's <span className="gradient-text">Connect</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            ¿Tienes un proyecto en mente? Me encantaría escuchar tus ideas y colaborar contigo
+            Open to senior engineering roles in AI/ML and backend development. Let's discuss how I can contribute to your team.
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -312,7 +312,7 @@ const Contact = () => {
           className="mt-16 pt-8 border-t border-gray-700 text-center"
         >
           <p className="text-gray-400">
-            © 2024 Cardan. Diseñado y desarrollado con ❤️ usando React y Tailwind CSS
+            © 2025 Cardan. Senior Software Engineer | AI/ML Specialist
           </p>
         </motion.div>
       </motion.div>

@@ -24,26 +24,30 @@ const Skills = () => {
   }, [])
 
   const skills = {
-    "Frontend": [
-      { name: "React", level: 95, color: "from-blue-400 to-blue-600" },
-      { name: "TypeScript", level: 90, color: "from-blue-600 to-blue-800" },
-      { name: "Tailwind CSS", level: 92, color: "from-teal-400 to-teal-600" },
-      { name: "Next.js", level: 85, color: "from-gray-600 to-gray-800" },
-      { name: "Vue.js", level: 78, color: "from-green-400 to-green-600" }
+    "AI & Machine Learning": [
+      { name: "RAG Systems", level: 95, color: "from-purple-500 to-pink-600" },
+      { name: "LangChain", level: 90, color: "from-green-400 to-teal-600" },
+      { name: "OpenAI/LLMs", level: 92, color: "from-emerald-500 to-green-700" },
+      { name: "Computer Vision", level: 88, color: "from-blue-500 to-indigo-600" },
+      { name: "PyTorch", level: 85, color: "from-orange-500 to-red-600" },
+      { name: "HuggingFace", level: 88, color: "from-yellow-500 to-orange-500" },
+      { name: "Vector DBs", level: 90, color: "from-cyan-500 to-blue-600" }
     ],
-    "Backend": [
-      { name: "Node.js", level: 88, color: "from-green-500 to-green-700" },
-      { name: "Python", level: 85, color: "from-yellow-400 to-yellow-600" },
-      { name: "Express", level: 90, color: "from-gray-500 to-gray-700" },
-      { name: "PostgreSQL", level: 82, color: "from-blue-500 to-blue-700" },
-      { name: "MongoDB", level: 80, color: "from-green-600 to-green-800" }
+    "Backend & Data": [
+      { name: "Python", level: 92, color: "from-blue-500 to-yellow-500" },
+      { name: "Java", level: 95, color: "from-orange-500 to-red-600" },
+      { name: "Spring Boot", level: 90, color: "from-green-500 to-green-700" },
+      { name: "PostgreSQL", level: 88, color: "from-blue-500 to-blue-700" },
+      { name: "MongoDB", level: 85, color: "from-green-600 to-green-800" },
+      { name: "REST APIs", level: 92, color: "from-purple-500 to-purple-700" }
     ],
-    "Tools & Others": [
-      { name: "Git", level: 92, color: "from-orange-500 to-orange-700" },
-      { name: "Docker", level: 75, color: "from-blue-400 to-blue-600" },
-      { name: "AWS", level: 70, color: "from-yellow-500 to-orange-500" },
-      { name: "GraphQL", level: 73, color: "from-pink-500 to-pink-700" },
-      { name: "Jest", level: 85, color: "from-red-500 to-red-700" }
+    "Tools & Infrastructure": [
+      { name: "Git", level: 95, color: "from-orange-500 to-orange-700" },
+      { name: "Docker", level: 88, color: "from-blue-400 to-blue-600" },
+      { name: "AWS", level: 82, color: "from-yellow-500 to-orange-500" },
+      { name: "React", level: 85, color: "from-cyan-400 to-blue-600" },
+      { name: "CI/CD", level: 85, color: "from-gray-500 to-gray-700" },
+      { name: "MLOps", level: 80, color: "from-indigo-500 to-purple-600" }
     ]
   }
 
@@ -171,13 +175,13 @@ const Skills = () => {
         >
           <div className="glass-effect p-8 rounded-2xl max-w-3xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4 gradient-text">
-              Siempre Aprendiendo
+              Explorando Nuevas Fronteras
             </h3>
             <p className="text-gray-300 mb-6">
-              La tecnología evoluciona constantemente, y yo con ella. Actualmente estoy explorando:
+              La AI evoluciona rápidamente. Actualmente profundizando en:
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              {['Machine Learning', 'Web3', 'React Native', 'Rust'].map((tech, index) => (
+              {['Agentic AI', 'Multi-Agent Systems', 'Fine-tuning LLMs', 'Graph RAG'].map((tech, index) => (
                 <motion.span
                   key={tech}
                   initial={{ scale: 0 }}

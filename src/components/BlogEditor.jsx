@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { useBlog } from '../context/BlogContext'
 
 const BlogEditor = () => {
-  const { addPost, setView, toggleEditor } = useBlog()
+  const { createPost, setView, toggleEditor } = useBlog()
   const [isPreview, setIsPreview] = useState(false)
   const [formData, setFormData] = useState({
     title: '',
@@ -82,13 +82,20 @@ const BlogEditor = () => {
         .filter(tag => tag.length > 0)
 
       const postData = {
-        ...formData,
+        title: formData.title,
+        excerpt: formData.preview, // Mapear preview a excerpt
+        content: formData.content,
         tags: tagsArray,
-        readTime: `${Math.ceil(formData.content.split(' ').length / 200)} min`
+        published: true, // Publicar automáticamente
+        category: formData.category,
+        mood: formData.mood,
+        codeSnippet: formData.codeSnippet,
+        featured: formData.featured,
+        readTime: `${Math.ceil(formData.content.split(' ').length / 200)} min`,
+        author: 'Cardan'
       }
 
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simular save
-      addPost(postData)
+      await createPost(postData)
 
       // Reset form
       setFormData({
