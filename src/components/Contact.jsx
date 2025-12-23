@@ -57,34 +57,32 @@ const Contact = () => {
     {
       icon: '📧',
       title: 'Email',
-      value: 'cardan.dev@gmail.com',
-      link: 'mailto:cardan.dev@gmail.com'
+      value: 'carlosdanielvillena@gmail.com',
+      link: 'mailto:carlosdanielvillena@gmail.com'
     },
     {
       icon: '💼',
       title: 'LinkedIn',
-      value: 'Connect with me',
-      link: 'https://linkedin.com/in/cardan'
+      value: 'carlos-villena',
+      link: 'https://www.linkedin.com/in/carlos-villena/'
     },
     {
       icon: '🐙',
       title: 'GitHub',
-      value: 'github.com/cardan',
-      link: 'https://github.com/cardan'
+      value: 'Cardan123',
+      link: 'https://github.com/Cardan123'
     },
     {
       icon: '📍',
-      title: 'Ubicación',
-      value: 'Monterrey, México',
+      title: 'Location',
+      value: 'Monterrey, Mexico',
       link: '#'
     }
   ]
 
   const socialLinks = [
-    { name: 'GitHub', icon: '🐙', url: 'https://github.com', color: 'from-gray-600 to-gray-800' },
-    { name: 'LinkedIn', icon: '💼', url: 'https://linkedin.com', color: 'from-blue-600 to-blue-800' },
-    { name: 'Twitter', icon: '🐦', url: 'https://twitter.com', color: 'from-sky-500 to-sky-700' },
-    { name: 'Instagram', icon: '📸', url: 'https://instagram.com', color: 'from-pink-500 to-purple-600' }
+    { name: 'GitHub', icon: '🐙', url: 'https://github.com/Cardan123', color: 'from-gray-600 to-gray-800' },
+    { name: 'LinkedIn', icon: '💼', url: 'https://www.linkedin.com/in/carlos-villena/', color: 'from-blue-600 to-blue-800' }
   ]
 
   const containerVariants = {
@@ -132,7 +130,7 @@ const Contact = () => {
           <motion.div variants={itemVariants} className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold mb-6 gradient-text">
-                Información de Contacto
+                Contact Information
               </h3>
 
               <div className="space-y-6">
@@ -161,7 +159,7 @@ const Contact = () => {
             {/* Social Links */}
             <div>
               <h4 className="text-xl font-semibold mb-4 text-white">
-                Sígueme en redes sociales
+                Follow me
               </h4>
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
@@ -189,7 +187,7 @@ const Contact = () => {
           <motion.div variants={itemVariants}>
             <div className="glass-effect p-8 rounded-2xl">
               <h3 className="text-2xl font-semibold mb-6 gradient-text">
-                Envíame un mensaje
+                Send me a message
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -199,7 +197,7 @@ const Contact = () => {
                     animate={isVisible ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <label className="block text-gray-300 mb-2">Nombre</label>
+                    <label className="block text-gray-300 mb-2">Name</label>
                     <input
                       type="text"
                       name="name"
@@ -207,7 +205,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-white transition-colors"
-                      placeholder="Tu nombre"
+                      placeholder="Your name"
                     />
                   </motion.div>
 
@@ -234,7 +232,7 @@ const Contact = () => {
                   animate={isVisible ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <label className="block text-gray-300 mb-2">Asunto</label>
+                  <label className="block text-gray-300 mb-2">Subject</label>
                   <input
                     type="text"
                     name="subject"
@@ -242,7 +240,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-white transition-colors"
-                    placeholder="¿En qué puedo ayudarte?"
+                    placeholder="How can I help you?"
                   />
                 </motion.div>
 
@@ -251,7 +249,7 @@ const Contact = () => {
                   animate={isVisible ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                   transition={{ delay: 0.7 }}
                 >
-                  <label className="block text-gray-300 mb-2">Mensaje</label>
+                  <label className="block text-gray-300 mb-2">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -259,7 +257,7 @@ const Contact = () => {
                     required
                     rows={5}
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-white transition-colors resize-none"
-                    placeholder="Cuéntame sobre tu proyecto..."
+                    placeholder="Tell me about your project..."
                   />
                 </motion.div>
 
@@ -274,7 +272,7 @@ const Contact = () => {
                   className="w-full btn-primary relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span className={isSubmitting ? 'opacity-0' : 'opacity-100'}>
-                    Enviar mensaje
+                    Send message
                   </span>
                   {isSubmitting && (
                     <motion.div
@@ -299,7 +297,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-4 p-4 bg-green-600/20 border border-green-500/30 rounded-lg text-green-300 text-center"
                 >
-                  ✅ ¡Mensaje enviado correctamente! Te responderé pronto.
+                  Message sent successfully! I'll get back to you soon.
                 </motion.div>
               )}
             </div>
@@ -312,7 +310,7 @@ const Contact = () => {
           className="mt-16 pt-8 border-t border-gray-700 text-center"
         >
           <p className="text-gray-400">
-            © 2025 Cardan. Senior Software Engineer | AI/ML Specialist
+            © 2025 Carlos Villena. Senior Software Engineer | AI/ML Specialist
           </p>
         </motion.div>
       </motion.div>

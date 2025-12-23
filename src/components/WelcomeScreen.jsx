@@ -7,28 +7,28 @@ const WelcomeScreen = ({ onViewSelect }) => {
   const views = [
     {
       id: 'public',
-      title: 'Vista Pública',
-      description: 'Portfolio profesional para visitantes y posibles colaboradores',
+      title: 'Public View',
+      description: 'Professional portfolio for visitors and potential collaborators',
       icon: '👥',
       gradient: 'from-blue-500 to-cyan-500',
       features: [
-        'Portfolio profesional',
-        'Proyectos destacados',
-        'Blog de tecnología',
-        'Información de contacto'
+        'Professional portfolio',
+        'Featured projects',
+        'Tech blog',
+        'Contact information'
       ]
     },
     {
       id: 'admin',
-      title: 'Panel de Administración',
-      description: 'Gestión completa del portfolio y blog',
+      title: 'Admin Panel',
+      description: 'Full portfolio and blog management',
       icon: '⚙️',
       gradient: 'from-purple-500 to-pink-500',
       features: [
-        'Gestión de posts del blog',
-        'Estadísticas detalladas',
-        'Configuración avanzada',
-        'Modo cyberpunk completo'
+        'Blog post management',
+        'Detailed statistics',
+        'Advanced settings',
+        'Full cyberpunk mode'
       ]
     }
   ]
@@ -82,7 +82,7 @@ const WelcomeScreen = ({ onViewSelect }) => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            CARDAN.DEV
+            CARLOS VILLENA
           </motion.h1>
 
           <motion.p
@@ -91,7 +91,7 @@ const WelcomeScreen = ({ onViewSelect }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Desarrollador Full Stack
+            Senior Software Engineer | AI/ML Specialist
           </motion.p>
 
           <motion.p
@@ -100,7 +100,7 @@ const WelcomeScreen = ({ onViewSelect }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Bienvenido a mi portfolio digital. Selecciona cómo quieres explorar mi trabajo:
+            Welcome to my digital portfolio. Select how you want to explore my work:
           </motion.p>
         </motion.div>
 
@@ -149,7 +149,7 @@ const WelcomeScreen = ({ onViewSelect }) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {selectedView === view.id ? 'Cargando...' : 'Seleccionar Vista'}
+                  {selectedView === view.id ? 'Loading...' : 'Select View'}
                 </motion.button>
 
                 {/* Hover Effect */}
@@ -166,8 +166,8 @@ const WelcomeScreen = ({ onViewSelect }) => {
           transition={{ duration: 0.8, delay: 1.4 }}
           className="text-center mt-16 text-gray-500 text-sm"
         >
-          <p>Portfolio desarrollado con React + Vite + Tailwind CSS</p>
-          <p className="mt-1">© 2024 Cardan.dev - Todos los derechos reservados</p>
+          <p>Portfolio built with React + Vite + Tailwind CSS</p>
+          <p className="mt-1">© 2025 Carlos Villena - All rights reserved</p>
         </motion.div>
       </div>
 
@@ -184,7 +184,7 @@ const WelcomeScreen = ({ onViewSelect }) => {
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               className="w-12 h-12 border-3 border-blue-400 border-t-transparent rounded-full mb-4 mx-auto"
             />
-            <p className="text-white text-lg">Iniciando vista {selectedView === 'public' ? 'pública' : 'administrativa'}...</p>
+            <p className="text-white text-lg">Loading {selectedView === 'public' ? 'public' : 'admin'} view...</p>
           </div>
         </motion.div>
       )}

@@ -83,10 +83,10 @@ const Skills = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Mis <span className="gradient-text">Habilidades</span>
+            My <span className="gradient-text">Skills</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Tecnologías y herramientas que domino para crear experiencias digitales excepcionales
+            Technologies and tools I master to build exceptional AI and software solutions
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -158,9 +158,9 @@ const Skills = () => {
                       }}
                       transition={{ duration: 0.2 }}
                     >
-                      {skill.level >= 90 ? "Experto" :
-                       skill.level >= 80 ? "Avanzado" :
-                       skill.level >= 70 ? "Intermedio" : "Básico"}
+                      {skill.level >= 90 ? "Expert" :
+                       skill.level >= 80 ? "Advanced" :
+                       skill.level >= 70 ? "Intermediate" : "Basic"}
                     </motion.div>
                   </motion.div>
                 ))}
@@ -175,10 +175,10 @@ const Skills = () => {
         >
           <div className="glass-effect p-8 rounded-2xl max-w-3xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4 gradient-text">
-              Explorando Nuevas Fronteras
+              Exploring New Frontiers
             </h3>
             <p className="text-gray-300 mb-6">
-              La AI evoluciona rápidamente. Actualmente profundizando en:
+              AI evolves rapidly. Currently deepening my knowledge in:
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {['Agentic AI', 'Multi-Agent Systems', 'Fine-tuning LLMs', 'Graph RAG'].map((tech, index) => (

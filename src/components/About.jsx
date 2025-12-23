@@ -46,10 +46,10 @@ const About = () => {
   }
 
   const stats = [
-    { number: "5+", label: "Años de experiencia" },
+    { number: "5+", label: "Years of Experience" },
     { number: "M.S.", label: "Applied AI - Tec de Monterrey" },
-    { number: "92%", label: "Precision en sistemas RAG" },
-    { number: "<3%", label: "Tasa de alucinación AI" }
+    { number: "92%", label: "RAG System Precision" },
+    { number: "<3%", label: "AI Hallucination Rate" }
   ]
 
   return (
@@ -62,7 +62,7 @@ const About = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Sobre <span className="gradient-text">Mí</span>
+            About <span className="gradient-text">Me</span>
           </h2>
           <div className="w-24 h-1 bg-primary-500 mx-auto"></div>
         </motion.div>
@@ -70,21 +70,21 @@ const About = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div variants={itemVariants} className="space-y-6">
             <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6">
-              Transformando industrias con AI de grado producción
+              Transforming industries with production-grade AI
             </h3>
 
             <p className="text-gray-300 text-lg leading-relaxed">
-              Senior Software Engineer con Master's en Applied AI del Tecnológico de Monterrey.
-              Recientemente completé un proyecto de tesis desarrollando un sistema Multimodal RAG
-              para la industria AEC (Arquitectura, Ingeniería y Construcción) que logró 92% de precisión
-              y redujo la tasa de alucinación de 15% a menos del 3%.
+              Senior Software Engineer with a Master's in Applied AI from Tecnológico de Monterrey.
+              Recently completed a thesis project developing a Multimodal RAG system for the AEC
+              (Architecture, Engineering & Construction) industry that achieved 92% precision
+              and reduced hallucination rate from 15% to under 3%.
             </p>
 
             <p className="text-gray-300 text-lg leading-relaxed">
-              Experiencia construyendo arquitecturas multi-agente RAG con embeddings multimodales,
-              procesamiento OCR, descripciones de imágenes y orquestación adaptativa. Especializado
-              en sistemas backend escalables con Java/Spring Boot y pipelines de ML con Python.
-              Apasionado por crear soluciones AI que resuelven problemas reales de la industria.
+              Experienced in building multi-agent RAG architectures with multimodal embeddings,
+              OCR processing, image descriptions, and adaptive orchestration. Specialized in
+              scalable backend systems with Java/Spring Boot and ML pipelines with Python.
+              Passionate about creating AI solutions that solve real industry problems.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
@@ -155,7 +155,7 @@ const About = () => {
             className="btn-primary group"
             onClick={() => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' })}
           >
-            Conoce mis habilidades
+            View my skills
             <motion.span
               className="inline-block ml-2"
               whileHover={{ x: 5 }}

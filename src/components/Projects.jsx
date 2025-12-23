@@ -33,7 +33,7 @@ const Projects = () => {
       technologies: ["Python", "LangChain", "SAM", "CLIP", "MongoDB", "OCR"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: true,
       metrics: { precision: "0.92", recall: "0.90", f1: "0.91" }
     },
@@ -45,7 +45,7 @@ const Projects = () => {
       technologies: ["Python", "LangChain", "Vector DBs", "OpenAI", "Gradio"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: true
     },
     {
@@ -56,7 +56,7 @@ const Projects = () => {
       technologies: ["PyTorch", "SAM", "CLIP", "OpenCV", "Tesseract"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: true
     },
     {
@@ -67,7 +67,7 @@ const Projects = () => {
       technologies: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Kafka"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: false
     },
     {
@@ -78,7 +78,7 @@ const Projects = () => {
       technologies: ["Java", "Spring Security", "Redis", "JWT", "Prometheus"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: false
     },
     {
@@ -89,13 +89,13 @@ const Projects = () => {
       technologies: ["Python", "MLflow", "DVC", "Docker", "AWS"],
       image: "/api/placeholder/400/300",
       demoUrl: "#",
-      codeUrl: "https://github.com/cardan",
+      codeUrl: "https://github.com/Cardan123",
       featured: false
     }
   ]
 
   const categories = [
-    { id: 'all', name: 'Todos', count: projects.length },
+    { id: 'all', name: 'All', count: projects.length },
     { id: 'ai', name: 'AI/ML', count: projects.filter(p => p.category === 'ai').length },
     { id: 'backend', name: 'Backend', count: projects.filter(p => p.category === 'backend').length }
   ]
@@ -138,10 +138,10 @@ const Projects = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Mis <span className="gradient-text">Proyectos</span>
+            My <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Proyectos de AI/ML y sistemas backend de grado producción con métricas de impacto real
+            Production-grade AI/ML and backend systems with real-world impact metrics
           </p>
           <div className="w-24 h-1 bg-primary-500 mx-auto mt-4"></div>
         </motion.div>
@@ -190,7 +190,7 @@ const Projects = () => {
                   animate={{ scale: 1, rotate: -45 }}
                   className="absolute top-4 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold px-8 py-1 z-10"
                 >
-                  DESTACADO
+                  FEATURED
                 </motion.div>
               )}
 
@@ -266,7 +266,7 @@ const Projects = () => {
                     className="flex-1 btn-primary text-sm py-2"
                     onClick={() => window.open(project.demoUrl, '_blank')}
                   >
-                    Ver Demo
+                    View Demo
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -274,7 +274,7 @@ const Projects = () => {
                     className="flex-1 btn-outline text-sm py-2"
                     onClick={() => window.open(project.codeUrl, '_blank')}
                   >
-                    Ver Código
+                    View Code
                   </motion.button>
                 </div>
               </div>
@@ -290,9 +290,9 @@ const Projects = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className="btn-outline group"
-            onClick={() => window.open('https://github.com', '_blank')}
+            onClick={() => window.open('https://github.com/Cardan123', '_blank')}
           >
-            Ver más en GitHub
+            View more on GitHub
             <motion.span
               className="inline-block ml-2"
               whileHover={{ x: 5 }}

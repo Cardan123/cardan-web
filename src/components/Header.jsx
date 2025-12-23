@@ -20,14 +20,14 @@ const Header = ({ isAdminRoute, navigate }) => {
   }, [])
 
   const navItems = [
-    { name: 'Inicio', href: '#hero' },
-    { name: 'Sobre mí', href: '#about' },
-    { name: 'Habilidades', href: '#skills' },
-    { name: 'Experiencia', href: '#timeline' },
-    { name: 'Proyectos', href: '#projects' },
+    { name: 'Home', href: '#hero' },
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Experience', href: '#timeline' },
+    { name: 'Projects', href: '#projects' },
     { name: 'Blog', href: '#blog' },
-    { name: 'Testimonios', href: '#testimonials' },
-    { name: 'Contacto', href: '#contact' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Contact', href: '#contact' },
   ]
 
   return (
@@ -66,9 +66,9 @@ const Header = ({ isAdminRoute, navigate }) => {
             {/* Logo Text */}
             <div className="text-2xl font-bold">
               {isCyberMode ? (
-                <span className="glitch-effect" data-text="CARDAN.DEV">CARDAN.DEV</span>
+                <span className="glitch-effect" data-text="CARLOS.DEV">CARLOS.DEV</span>
               ) : (
-                <span>Cardan.dev</span>
+                <span>Carlos.dev</span>
               )}
             </div>
           </motion.div>
@@ -112,7 +112,7 @@ const Header = ({ isAdminRoute, navigate }) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                👥 Público
+                👥 Public
               </motion.button>
 
               {/* Logout button (only show if admin is logged in) */}
@@ -127,7 +127,7 @@ const Header = ({ isAdminRoute, navigate }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Salir
+                  Logout
                 </motion.button>
               )}
             </div>
@@ -208,7 +208,7 @@ const Header = ({ isAdminRoute, navigate }) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  👥 Público
+                  👥 Public
                 </motion.button>
 
                 {/* Mobile Logout button */}
@@ -226,7 +226,7 @@ const Header = ({ isAdminRoute, navigate }) => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Salir
+                    Logout
                   </motion.button>
                 )}
               </div>

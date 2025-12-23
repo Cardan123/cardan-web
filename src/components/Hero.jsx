@@ -142,16 +142,16 @@ const Hero = ({ isAdminRoute }) => {
               >
                 {isPublicView ? (
                   <>
-                    Hola, soy{' '}
+                    Hi, I'm{' '}
                     <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                      Cardan
+                      Carlos Villena
                     </span>
                   </>
                 ) : (
                   <>
                     <span className="text-gray-400">&gt; INITIALIZING{' '}</span>
-                    <span className="cyber-title neon-text glitch-effect" data-text="CARDAN">
-                      CARDAN
+                    <span className="cyber-title neon-text glitch-effect" data-text="CARLOS">
+                      CARLOS
                     </span>
                     <span className="text-cyber-cyan">_</span>
                   </>
@@ -170,13 +170,13 @@ const Hero = ({ isAdminRoute }) => {
                 </motion.div>
               )}
 
-              {/* Greeting profesional para vista pública */}
+              {/* Professional greeting for public view */}
               {isPublicView && (
                 <motion.div
                   variants={itemVariants}
                   className="text-lg md:text-xl text-gray-300 mb-4"
                 >
-                  👋 Bienvenido a mi portfolio digital
+                  Welcome to my digital portfolio
                 </motion.div>
               )}
             </motion.div>
@@ -245,7 +245,7 @@ const Hero = ({ isAdminRoute }) => {
                 onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
               >
                 <span className="relative z-10">
-                  {isPublicView ? "Ver mis proyectos" : "> EXECUTE_PROJECTS.EXE"}
+                  {isPublicView ? "View my projects" : "> EXECUTE_PROJECTS.EXE"}
                 </span>
                 {!isPublicView && (
                   <motion.div
@@ -266,7 +266,7 @@ const Hero = ({ isAdminRoute }) => {
                 }
                 onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
               >
-                {isPublicView ? "Contactáme" : "INIT_CONTACT.SH"}
+                {isPublicView ? "Contact me" : "INIT_CONTACT.SH"}
                 <motion.span
                   className="inline-block ml-2"
                   whileHover={{ x: 5 }}
@@ -335,7 +335,7 @@ const Hero = ({ isAdminRoute }) => {
             className="text-white cursor-pointer text-center"
             onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
           >
-            <div className="text-sm mb-2">Scroll para conocer más</div>
+            <div className="text-sm mb-2">Scroll to learn more</div>
             <div className="w-6 h-10 border-2 border-white rounded-full mx-auto relative">
               <motion.div
                 animate={{ y: [0, 12, 0] }}
