@@ -7,13 +7,13 @@ const LoadingScreen = ({ onComplete }) => {
   const [isComplete, setIsComplete] = useState(false)
 
   const loadingSteps = [
-    "Inicializando sistemas...",
-    "Cargando componentes React...",
-    "Configurando animaciones...",
-    "Conectando con la matrix...",
-    "Compilando código fuente...",
-    "Optimizando performance...",
-    "¡Bienvenido al portfolio!"
+    "Initializing systems...",
+    "Loading React components...",
+    "Configuring animations...",
+    "Connecting to the matrix...",
+    "Compiling source code...",
+    "Optimizing performance...",
+    "Welcome to the portfolio!"
   ]
 
   useEffect(() => {
@@ -151,7 +151,7 @@ const LoadingScreen = ({ onComplete }) => {
             className="mb-8"
           >
             <h1 className="text-3xl font-bold text-white mb-4">
-              Cardan<span className="gradient-text">.dev</span>
+              Carlos<span className="gradient-text">.dev</span>
             </h1>
             <motion.p
               key={currentStep}
@@ -256,7 +256,7 @@ const LoadingScreen = ({ onComplete }) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-2xl font-bold text-white mb-2"
                   >
-                    ¡Carga Completa!
+                    Loading Complete!
                   </motion.h2>
                   <motion.p
                     initial={{ opacity: 0 }}
@@ -264,7 +264,7 @@ const LoadingScreen = ({ onComplete }) => {
                     transition={{ delay: 0.3 }}
                     className="text-gray-400"
                   >
-                    Preparando experiencia épica...
+                    Preparing awesome experience...
                   </motion.p>
                 </div>
               </motion.div>
