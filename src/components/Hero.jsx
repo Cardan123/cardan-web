@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import AnimatedBackground from './AnimatedBackground'
 
 const Hero = () => {
   const containerVariants = {
@@ -23,103 +24,63 @@ const Hero = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden">
-      {/* Subtle Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+      <AnimatedBackground variant="hero" />
 
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }} />
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="text-center"
         >
-          {/* Greeting */}
-          <motion.p
-            variants={itemVariants}
-            className="text-blue-400 text-lg mb-4 font-medium"
-          >
-            Hello, I'm
-          </motion.p>
-
-          {/* Name */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
+            className="text-5xl md:text-7xl font-bold text-white mb-4"
           >
             Carlos Villena
           </motion.h1>
 
-          {/* Title */}
           <motion.h2
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-300 mb-8"
+            className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-10 font-medium"
           >
-            Senior Software Engineer{' '}
-            <span className="text-blue-400">•</span>{' '}
-            AI/ML Specialist
+            Senior Software Engineer | AI/ML Engineer
           </motion.h2>
 
-          {/* Description */}
           <motion.p
             variants={itemVariants}
             className="text-gray-400 text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Master's in Applied AI from Tecnológico de Monterrey.
-            I build production-grade Multimodal RAG systems and scalable backend architectures.
-            Passionate about transforming complex problems into elegant AI-powered solutions.
+            Building enterprise-scale platforms and AI-driven systems. Specialized in cloud migrations,
+            DevOps automation, and production-grade RAG architectures with measurable impact.
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(59, 130, 246, 0.4)' }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+              onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/25"
             >
-              View Projects
+              View Experience
             </motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, borderColor: 'rgba(59, 130, 246, 0.5)' }}
               whileTap={{ scale: 0.98 }}
               onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-3 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white font-medium rounded-lg transition-colors"
+              className="px-8 py-3 border border-gray-600 hover:border-blue-500/50 text-gray-300 hover:text-white font-medium rounded-lg transition-all duration-300 backdrop-blur-sm"
             >
               Get in Touch
             </motion.button>
           </motion.div>
-
-          {/* Quick Stats */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-16 pt-16 border-t border-gray-800"
-          >
-            <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
-              {[
-                { value: "5+", label: "Years Exp." },
-                { value: "92%", label: "RAG Precision" },
-                { value: "M.S.", label: "Applied AI" }
-              ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
-                  <div className="text-gray-500 text-sm">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -129,13 +90,13 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center cursor-pointer"
-          onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+          className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center cursor-pointer hover:border-blue-500/50 transition-colors"
+          onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-gray-500 rounded-full mt-2"
+            className="w-1 h-3 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full mt-2"
           />
         </motion.div>
       </motion.div>
