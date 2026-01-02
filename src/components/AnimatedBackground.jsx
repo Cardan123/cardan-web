@@ -10,7 +10,7 @@ const AnimatedBackground = ({ variant = 'default' }) => {
       ],
       showGrid: true,
       showParticles: true,
-      particleCount: 200
+      particleCount: 50 // Reduced for better performance
     },
     experience: {
       orbs: [
@@ -49,7 +49,7 @@ const AnimatedBackground = ({ variant = 'default' }) => {
   const config = variants[variant] || variants.default
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Animated Orbs */}
       {config.orbs.map((orb, index) => (
         <motion.div
@@ -87,7 +87,7 @@ const AnimatedBackground = ({ variant = 'default' }) => {
 
       {/* Floating Particles */}
       {config.showParticles && (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0" aria-hidden="true">
           {[...Array(config.particleCount || 15)].map((_, i) => (
             <motion.div
               key={i}

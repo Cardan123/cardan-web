@@ -4,23 +4,30 @@ import AnimatedBackground from './AnimatedBackground'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef()
+  const ref = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
+          // Stop observing once visible to improve performance
+          observer.disconnect()
         }
       },
       { threshold: 0.1 }
     )
 
-    if (ref.current) {
-      observer.observe(ref.current)
+    const currentRef = ref.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      if (currentRef) {
+        observer.disconnect()
+      }
+    }
   }, [])
 
   const projects = [
@@ -87,7 +94,7 @@ const Projects = () => {
   }
 
   return (
-    <section id="projects" ref={ref} className="py-24 bg-gray-800 relative overflow-hidden">
+    <section id="projects" ref={ref} className="py-24 bg-gray-800 relative overflow-hidden" aria-label="Projects section">
       <AnimatedBackground variant="projects" />
 
       <motion.div

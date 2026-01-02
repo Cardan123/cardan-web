@@ -4,23 +4,30 @@ import AnimatedBackground from './AnimatedBackground'
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef()
+  const ref = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
+          // Stop observing once visible to improve performance
+          observer.disconnect()
         }
       },
       { threshold: 0.3 }
     )
 
-    if (ref.current) {
-      observer.observe(ref.current)
+    const currentRef = ref.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      if (currentRef) {
+        observer.disconnect()
+      }
+    }
   }, [])
 
   const sectionVariants = {
@@ -91,7 +98,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" ref={ref} className="py-24 bg-gray-900 relative overflow-hidden">
+    <section id="contact" ref={ref} className="py-24 bg-gray-900 relative overflow-hidden" aria-label="Contact section">
       <AnimatedBackground variant="contact" />
 
       <motion.div

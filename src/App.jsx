@@ -30,7 +30,7 @@ const Header = () => {
     }`}>
       <nav className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <a href="#hero" className="text-xl font-semibold text-white">
+          <a href="#hero" className="text-xl font-semibold text-white" aria-label="Go to homepage">
             cardan<span className="text-blue-400">.dev</span>
           </a>
 
@@ -40,6 +40,7 @@ const Header = () => {
                 key={item.name}
                 href={item.href}
                 className="text-gray-300 hover:text-white transition-colors text-sm"
+                aria-label={`Navigate to ${item.name} section`}
               >
                 {item.name}
               </a>
@@ -49,6 +50,7 @@ const Header = () => {
           <a
             href="mailto:carlosdanielvillena@gmail.com"
             className="hidden md:inline-flex px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+            aria-label="Send email to Carlos Villena"
           >
             Get in Touch
           </a>

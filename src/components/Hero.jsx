@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedBackground from './AnimatedBackground'
+import { scrollToElement } from '../utils/scroll'
 
 const Hero = () => {
   const containerVariants = {
@@ -23,7 +24,7 @@ const Hero = () => {
   }
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden" aria-label="Hero section">
       <AnimatedBackground variant="hero" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
@@ -62,8 +63,9 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(59, 130, 246, 0.4)' }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => scrollToElement('experience')}
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/25"
+              aria-label="Scroll to experience section"
             >
               View Experience
             </motion.button>
@@ -71,8 +73,9 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.02, borderColor: 'rgba(59, 130, 246, 0.5)' }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => scrollToElement('contact')}
               className="px-8 py-3 border border-gray-600 hover:border-blue-500/50 text-gray-300 hover:text-white font-medium rounded-lg transition-all duration-300 backdrop-blur-sm"
+              aria-label="Scroll to contact section"
             >
               Get in Touch
             </motion.button>
@@ -91,7 +94,8 @@ const Hero = () => {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
           className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center cursor-pointer hover:border-blue-500/50 transition-colors"
-          onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => scrollToElement('experience')}
+          aria-label="Scroll down"
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
