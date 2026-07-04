@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import AnimatedBackground from './AnimatedBackground'
 import { scrollToElement } from '../utils/scroll'
 
@@ -45,15 +46,15 @@ const Hero = () => {
             variants={itemVariants}
             className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-10 font-medium"
           >
-            Senior Software Engineer | AI/ML Engineer
+            Senior AI Engineer | AI Architect | Applied GenAI
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-gray-400 text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Building enterprise-scale platforms and AI-driven systems. Specialized in cloud migrations,
-            DevOps automation, and production-grade RAG architectures with measurable impact.
+            Leading applied AI initiatives at Ford Motor Company. 7+ years of experience building
+            RAG systems, agentic workflows, and cloud-native AI platforms with measurable business impact.
           </motion.p>
 
           <motion.div
@@ -79,6 +80,17 @@ const Hero = () => {
             >
               Get in Touch
             </motion.button>
+
+            <Link to="/blog">
+              <motion.button
+                whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(139, 92, 246, 0.4)' }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-purple-500/25"
+                aria-label="Go to blog"
+              >
+                📝 Blog
+              </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

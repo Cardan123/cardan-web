@@ -1,9 +1,7 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import Hero from './components/Hero'
-import About from './components/About'
-import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Contact from './components/Contact'
+import Portfolio from './pages/Portfolio'
+import BlogPage from './pages/BlogPage'
 
 // Simple Header component
 const Header = () => {
@@ -30,9 +28,9 @@ const Header = () => {
     }`}>
       <nav className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <a href="#hero" className="text-xl font-semibold text-white" aria-label="Go to homepage">
-            cardan<span className="text-blue-400">.dev</span>
-          </a>
+          <Link to="/" className="text-xl font-semibold text-white" aria-label="Go to homepage">
+            carlosvillena<span className="text-blue-400">.dev</span>
+          </Link>
 
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
@@ -45,6 +43,13 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
+            <Link
+              to="/blog"
+              className="text-gray-300 hover:text-white transition-colors text-sm"
+              aria-label="Navigate to Blog"
+            >
+              Blog
+            </Link>
           </div>
 
           <a
@@ -62,16 +67,21 @@ const Header = () => {
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Header />
+              <main>
+                <Portfolio />
+              </main>
+            </>
+          } />
+          <Route path="/blog" element={<BlogPage />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 

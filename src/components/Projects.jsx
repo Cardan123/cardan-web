@@ -32,28 +32,40 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "ConstructAI — Multimodal RAG",
-      subtitle: "Construction Intelligence Platform",
-      description: "Production-grade Multimodal RAG for the AEC industry. Natural language queries over architectural drawings and technical documentation for cost estimations and compliance insights. CLIP + BGE-M3 embeddings with multi-agent architecture.",
-      technologies: ["CLIP", "BGE-M3", "LLMs", "OCR", "MongoDB", "Multi-Agent RAG"],
+      title: "CodeGuardians — AI Code Review",
+      subtitle: "Ford Motor Company",
+      description: "AI-assisted code review platform integrating repository events, pull request context, review comments, and asynchronous LLM workflows. Agentic pipelines combine retrieval, context construction, validation, structured outputs, and automated feedback loops.",
+      technologies: ["LLMs", "Agentic Workflows", "Python", "AI Evaluation", "REST APIs", "GCP"],
       metrics: [
-        { label: "Precision", value: "0.92" },
-        { label: "F1-Score", value: "0.91" },
-        { label: "Time Saved", value: "Days→Min" }
+        { label: "Dev Efficiency", value: "+30%" },
+        { label: "Scale", value: "Enterprise" }
       ],
       featured: true,
       gradient: "from-blue-500/20 to-purple-500/20"
     },
     {
-      title: "Cloud Premigration Advisor Tool",
-      subtitle: "Oracle Utilities",
-      description: "Core contributor to CPAT — helping customers anticipate and resolve migration contingencies before cloud deployment. Built HTML reporting system and CLI interface.",
-      technologies: ["Java", "Oracle DB", "Shell", "DevOps", "Linux"],
+      title: "ConstructAI — Multimodal RAG",
+      subtitle: "Construction Cost Estimation — Master's Project",
+      description: "Production-grade multimodal RAG automating construction cost estimation from visual blueprints and technical specifications. OCR and multimodal embeddings with adaptive query routing, conditional reranking, reflection, and validation loops for hallucination control.",
+      technologies: ["CLIP", "BGE-M3", "LLMs", "OCR", "MongoDB", "Multi-Agent RAG"],
       metrics: [
-        { label: "Throughput", value: "+40%" },
-        { label: "Scale", value: "Enterprise" }
+        { label: "Precision", value: "0.92" },
+        { label: "F1-Score", value: "0.91" },
+        { label: "Faster Bidding", value: "+80%" }
       ],
       featured: true,
+      gradient: "from-purple-500/20 to-pink-500/20"
+    },
+    {
+      title: "Cloud Pre-migration Analysis Tool",
+      subtitle: "Oracle",
+      description: "Core contributor and owner of key CPAT capabilities — backend analysis flows, HTML reporting, CLI tooling, parameterized execution, and migration risk assessment. Co-architected an automation module within Oracle AutoUpgrade.",
+      technologies: ["Java", "SQL", "Oracle DB", "Shell", "Linux"],
+      metrics: [
+        { label: "Reliability", value: "99.9%" },
+        { label: "Onboarding Time", value: "-30%" }
+      ],
+      featured: false,
       gradient: "from-cyan-500/20 to-blue-500/20"
     },
     {
@@ -66,7 +78,7 @@ const Projects = () => {
         { label: "Environments", value: "Multi-platform" }
       ],
       featured: false,
-      gradient: "from-purple-500/20 to-pink-500/20"
+      gradient: "from-emerald-500/20 to-cyan-500/20"
     }
   ]
 

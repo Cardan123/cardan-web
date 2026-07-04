@@ -32,24 +32,24 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: "Languages & Backend",
-      icon: "⚡",
-      description: "Enterprise Java development with modern frameworks and design patterns.",
-      skills: ["Java", "Python", "SQL", "Ruby", "Shell Scripting", "REST APIs"],
+      title: "AI & GenAI",
+      icon: "🤖",
+      description: "Production LLM applications with retrieval, agents, evaluation, and secure enterprise adoption.",
+      skills: ["LLMs", "RAG Systems", "Agentic Workflows", "Prompt & Context Engineering", "Multimodal AI", "AI Evaluation", "Hallucination Control", "Prompt Injection Defense"],
       color: "blue"
     },
     {
-      title: "DevOps & Cloud",
-      icon: "☁️",
-      description: "Building reliable CI/CD pipelines and cloud infrastructure at scale.",
-      skills: ["Docker", "Oracle Cloud", "Linux", "Jenkins", "DevOps Automation", "Testing"],
+      title: "Languages & Backend",
+      icon: "⚡",
+      description: "Backend architecture and full-stack development with secure, scalable API patterns.",
+      skills: ["Python", "Java", "TypeScript", "React", "Spring Boot", "Node.js", "REST APIs", "Microservices", "SQL"],
       color: "purple"
     },
     {
-      title: "AI & Architecture",
-      icon: "🤖",
-      description: "Applied AI systems with focus on RAG architectures and enterprise patterns.",
-      skills: ["AI/ML", "RAG Systems", "Design Patterns", "Data Structures", "OO Design", "Cloud Computing"],
+      title: "Cloud & DevOps",
+      icon: "☁️",
+      description: "Cloud-native deployments, containerized applications, and CI/CD automation at enterprise scale.",
+      skills: ["GCP", "OCI", "Azure", "Docker", "Linux", "CI/CD", "Git & GitHub", "MongoDB", "Oracle Database"],
       color: "cyan"
     }
   ]
@@ -118,7 +118,7 @@ const Skills = () => {
             Technical Skills
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Enterprise software engineering with AI and cloud expertise
+            Applied GenAI, backend architecture, and cloud-native systems
           </p>
         </motion.div>
 

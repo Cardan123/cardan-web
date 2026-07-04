@@ -114,7 +114,7 @@ const Contact = () => {
             Let's Connect
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Open to new opportunities in software engineering and AI/ML.
+            Open to Senior AI Engineer, AI Architect, and applied GenAI opportunities.
             Let's discuss how I can contribute to your team.
           </p>
         </motion.div>
@@ -167,7 +167,7 @@ const Contact = () => {
           className="mt-24 pt-8 border-t border-gray-800 text-center"
         >
           <p className="text-gray-500 text-sm">
-            © 2025 Carlos Villena. Built with React & Tailwind CSS.
+            © 2026 Carlos Villena. Built with React & Tailwind CSS.
           </p>
         </motion.div>
       </motion.div>

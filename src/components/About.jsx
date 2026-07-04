@@ -52,10 +52,26 @@ const About = () => {
     }
   }
 
+  const education = [
+    {
+      degree: "M.Sc. in Artificial Intelligence",
+      school: "Tecnológico de Monterrey",
+      period: "2023 — 2025"
+    },
+    {
+      degree: "B.Eng. in Computer Systems Engineering (Software)",
+      school: "Instituto Politécnico Nacional",
+      period: "2018 — 2022"
+    }
+  ]
+
   const certifications = [
-    "ScrumMaster - Scrum Alliance",
-    "MIT Digital Transformation",
-    "Professional Coaching"
+    "Digital Transformation — MIT (2021)"
+  ]
+
+  const languages = [
+    "Spanish — Native",
+    "English — Advanced Professional"
   ]
 
   return (
@@ -86,40 +102,44 @@ const About = () => {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
               <h3 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                Senior Member of Technical Staff
+                Senior AI Engineer
               </h3>
-              <p className="text-blue-400 text-lg">Oracle Utilities</p>
+              <p className="text-blue-400 text-lg">Ford Motor Company</p>
             </div>
             <span className="text-gray-400 text-sm md:text-base whitespace-nowrap px-3 py-1 bg-gray-800 rounded-full">
-              Oct 2024 — Present
+              Apr 2026 — Present
             </span>
           </div>
 
           <div className="space-y-4 text-gray-300 leading-relaxed">
             <p>
-              Lead engineer specializing in database migrations across on-prem and cloud environments.
-              Core contributor to the Cloud Premigration Advisor Tool (CPAT).
+              Leading applied AI and platform engineering initiatives focused on GenAI-powered
+              developer productivity, secure AI adoption, and production-grade engineering workflows.
             </p>
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Designed virtualized database testing platform, improving validation throughput by 40%+</span>
+                <span>Lead the development of CodeGuardians, an AI-assisted code review platform integrating repository events, pull request context, and asynchronous LLM workflows</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Led cross-product technical alignment with ZDM, DMS, and Oracle State Explorer teams</span>
+                <span>Design agentic workflows combining retrieval, context construction, reasoning, validation, structured outputs, and automated feedback loops</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Drove integration of AI-assisted diagnostics and predictive insights into internal tooling</span>
+                <span>Develop evaluation frameworks, regression tests, and validation pipelines to measure LLM quality and reduce hallucinations</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Mentored engineers on CI/CD pipelines, automation frameworks, and Oracle toolchains</span>
+                <span>Contribute to enterprise AI security, including protections against prompt injection and other LLM-specific attack vectors</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Improved software development efficiency by 30% through LLM-based automation and multi-agent architectures</span>
               </li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-4">
-              {["Java", "Python", "Oracle DB", "Linux", "Shell", "DevOps", "AI Engineering"].map((tech) => (
+              {["Python", "LLMs", "RAG", "Agentic Workflows", "AI Evaluation", "GCP", "CI/CD"].map((tech) => (
                 <span
                   key={tech}
                   className="px-3 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-full border border-gray-700/50"
@@ -140,12 +160,71 @@ const About = () => {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
               <h3 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                Member of Technical Staff
+                Senior Member of Technical Staff
               </h3>
               <p className="text-blue-400 text-lg">Oracle</p>
             </div>
             <span className="text-gray-400 text-sm md:text-base whitespace-nowrap px-3 py-1 bg-gray-800 rounded-full">
-              Feb 2022 — Oct 2025
+              Feb 2022 — Mar 2026
+            </span>
+          </div>
+
+          <div className="space-y-4 text-gray-300 leading-relaxed">
+            <p>
+              Owned backend, automation, validation, and cloud-migration capabilities for enterprise
+              platforms. Core contributor and owner of key Cloud Pre-migration Analysis Tool (CPAT)
+              capabilities, including backend analysis flows, HTML reporting, and CLI tooling.
+            </p>
+            <ul className="space-y-2 text-gray-400">
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Co-architected an automation module within Oracle AutoUpgrade, reducing customer onboarding time by 30%+</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Architected high-performance Java services for data validation and migration analysis, achieving 99.9% reliability</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Developed a virtualized database testing platform that increased validation throughput by 40%</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Led cross-product technical alignment with ZDM, DMS, and Oracle State Explorer teams</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <span>Mentored and onboarded engineers on CI/CD, automation frameworks, clean code, and code reviews</span>
+              </li>
+            </ul>
+            <div className="flex flex-wrap gap-2 pt-4">
+              {["Java", "SQL", "Oracle DB", "Docker", "Jenkins", "Linux", "Shell"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-full border border-gray-700/50"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Freelance Role */}
+        <motion.div
+          variants={itemVariants}
+          whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 mb-6 hover:border-blue-500/30 transition-all duration-300 group"
+        >
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+            <div>
+              <h3 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                Full-Stack Developer
+              </h3>
+              <p className="text-blue-400 text-lg">Freelance</p>
+            </div>
+            <span className="text-gray-400 text-sm md:text-base whitespace-nowrap px-3 py-1 bg-gray-800 rounded-full">
+              Aug 2018 — Feb 2022
             </span>
           </div>
 
@@ -153,19 +232,19 @@ const About = () => {
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Built high-performance Java services for database migration, validation, and performance testing</span>
+                <span>Designed and delivered 10+ full-stack web applications from requirements to production deployment</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Developed automation with Jenkins-based CI/CD pipelines for continuous delivery</span>
+                <span>Built responsive React interfaces integrated with Node.js and Express REST APIs</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Implemented threading models and query optimization for improved performance</span>
+                <span>Implemented authentication, RBAC, secure session management, request validation, and error handling</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-400 mt-1">•</span>
-                <span>Led environment virtualization using Docker for multi-platform development</span>
+                <span>Automated manual business workflows, improving client operational efficiency by 30–50%</span>
               </li>
             </ul>
           </div>
@@ -191,7 +270,7 @@ const About = () => {
                     Multimodal RAG
                   </span>
                 </div>
-                <p className="text-blue-400 text-lg">ConstructAI — Construction Intelligence Platform</p>
+                <p className="text-blue-400 text-lg">Construct AI — Master's Project · Tecnológico de Monterrey</p>
               </div>
               <span className="text-gray-400 text-sm md:text-base whitespace-nowrap px-3 py-1 bg-gray-800/50 rounded-full">
                 Sep 2025 — Dec 2025
@@ -200,22 +279,22 @@ const About = () => {
 
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                Designed a production-grade Multimodal RAG system for the AEC industry, enabling
-                natural language queries over architectural drawings and technical documentation
-                to deliver cost estimations, compliance insights, and material breakdowns.
+                Designed and implemented a production-grade multimodal RAG system to automate
+                construction cost estimation using visual blueprints and textual technical
+                specifications.
               </p>
               <ul className="space-y-2 text-gray-400">
                 <li className="flex items-start gap-3">
                   <span className="text-blue-400 mt-1">•</span>
-                  <span>Built multimodal embedding pipeline: CLIP (ViT-B/16) for image understanding, BGE-M3 for text, OCR for technical documents</span>
+                  <span>Built AI pipelines with OCR, image understanding, and multimodal embeddings — CLIP (ViT-B/16) for images, BGE-M3 for text</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-blue-400 mt-1">•</span>
-                  <span>Architected multi-agent system separating visual interpretation, context retrieval, and cost reasoning with LLM-driven explainable outputs</span>
+                  <span>Engineered adaptive query routing, conditional reranking, reflection, and validation loops for hallucination control</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-blue-400 mt-1">•</span>
-                  <span>Reduced estimation time from days to minutes with Precision 0.92, F1 0.91, and hallucinations under 3%</span>
+                  <span>Achieved 0.92 precision, 0.90 recall, and 0.91 F1 with hallucinations under 3% — enabling 80% faster bidding and 70% fewer calculation errors</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-2 pt-4">
@@ -232,18 +311,50 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* Certifications */}
-        <motion.div variants={itemVariants}>
-          <h3 className="text-lg font-medium text-white mb-4">Certifications</h3>
-          <div className="flex flex-wrap gap-3">
-            {certifications.map((cert) => (
-              <span
-                key={cert}
-                className="px-4 py-2 bg-gray-900/50 border border-gray-700/50 text-gray-300 text-sm rounded-full hover:border-blue-500/30 transition-colors"
+        {/* Education */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <h3 className="text-lg font-medium text-white mb-4">Education</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            {education.map((edu) => (
+              <div
+                key={edu.degree}
+                className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-5 hover:border-blue-500/30 transition-colors"
               >
-                {cert}
-              </span>
+                <p className="text-white font-medium">{edu.degree}</p>
+                <p className="text-blue-400 text-sm mt-1">{edu.school}</p>
+                <p className="text-gray-500 text-sm mt-1">{edu.period}</p>
+              </div>
             ))}
+          </div>
+        </motion.div>
+
+        {/* Certification & Languages */}
+        <motion.div variants={itemVariants} className="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-lg font-medium text-white mb-4">Certification</h3>
+            <div className="flex flex-wrap gap-3">
+              {certifications.map((cert) => (
+                <span
+                  key={cert}
+                  className="px-4 py-2 bg-gray-900/50 border border-gray-700/50 text-gray-300 text-sm rounded-full hover:border-blue-500/30 transition-colors"
+                >
+                  {cert}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-medium text-white mb-4">Languages</h3>
+            <div className="flex flex-wrap gap-3">
+              {languages.map((lang) => (
+                <span
+                  key={lang}
+                  className="px-4 py-2 bg-gray-900/50 border border-gray-700/50 text-gray-300 text-sm rounded-full hover:border-blue-500/30 transition-colors"
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
           </div>
         </motion.div>
       </motion.div>
