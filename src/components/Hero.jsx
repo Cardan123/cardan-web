@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import AnimatedBackground from './AnimatedBackground'
 import { scrollToElement } from '../utils/scroll'
+
+const stats = [
+  { value: '7+', label: 'YEARS' },
+  { value: '+30%', label: 'DEV EFFICIENCY' },
+  { value: '99.9%', label: 'RELIABILITY' },
+]
 
 const Hero = () => {
   const containerVariants = {
@@ -9,114 +13,89 @@ const Hero = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
+        delayChildren: 0.1,
+        staggerChildren: 0.12,
+      },
+    },
   }
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 22, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
   }
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden" aria-label="Hero section">
-      <AnimatedBackground variant="hero" />
-
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+    <header id="top" className="pt-[120px] pb-24 text-center" aria-label="Hero section">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible">
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-center"
+          variants={itemVariants}
+          className="inline-flex items-center gap-[9px] font-mono text-[11px] font-medium tracking-[0.14em] text-accent-br border border-line-str px-3.5 py-[7px] rounded-full mb-[34px]"
         >
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold text-white mb-4"
-          >
-            Carlos Villena
-          </motion.h1>
-
-          <motion.h2
-            variants={itemVariants}
-            className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-10 font-medium"
-          >
-            Senior AI Engineer | AI Architect | Applied GenAI
-          </motion.h2>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-gray-400 text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            Leading applied AI initiatives at Ford Motor Company. 7+ years of experience building
-            RAG systems, agentic workflows, and cloud-native AI platforms with measurable business impact.
-          </motion.p>
-
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(59, 130, 246, 0.4)' }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => scrollToElement('experience')}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/25"
-              aria-label="Scroll to experience section"
-            >
-              View Experience
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.02, borderColor: 'rgba(59, 130, 246, 0.5)' }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => scrollToElement('contact')}
-              className="px-8 py-3 border border-gray-600 hover:border-blue-500/50 text-gray-300 hover:text-white font-medium rounded-lg transition-all duration-300 backdrop-blur-sm"
-              aria-label="Scroll to contact section"
-            >
-              Get in Touch
-            </motion.button>
-
-            <Link to="/blog">
-              <motion.button
-                whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(139, 92, 246, 0.4)' }}
-                whileTap={{ scale: 0.98 }}
-                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-purple-500/25"
-                aria-label="Go to blog"
-              >
-                📝 Blog
-              </motion.button>
-            </Link>
-          </motion.div>
+          <span className="w-1.5 h-1.5 rounded-full bg-accent-br animate-blink" />
+          AVAILABLE FOR SENIOR AI ROLES
         </motion.div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center cursor-pointer hover:border-blue-500/50 transition-colors"
-          onClick={() => scrollToElement('experience')}
-          aria-label="Scroll down"
+        <motion.h1
+          variants={itemVariants}
+          className="m-0 font-semibold text-[clamp(44px,7vw,84px)] leading-none tracking-[-0.04em] text-ink"
         >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full mt-2"
-          />
+          Carlos Villena
+        </motion.h1>
+
+        <motion.div
+          variants={itemVariants}
+          className="mt-[26px] font-mono text-[15px] font-medium text-accent-br tracking-[0.02em]"
+        >
+          Senior AI Engineer · AI Architect · Applied GenAI
+        </motion.div>
+
+        <motion.p
+          variants={itemVariants}
+          className="mt-7 mx-auto max-w-[560px] text-[17px] leading-[1.6] text-muted"
+        >
+          Leading applied AI at Ford Motor Company. 7+ years building RAG systems, agentic
+          workflows and cloud-native AI platforms with measurable business impact.
+        </motion.p>
+
+        <motion.div variants={itemVariants} className="flex gap-3 justify-center mt-10 flex-wrap">
+          <button
+            onClick={() => scrollToElement('experience')}
+            className="pf-hover bg-accent text-on-accent font-mono text-[13px] font-semibold px-6 py-3.5 rounded-lg border border-transparent"
+            aria-label="Scroll to experience section"
+          >
+            view_experience()
+          </button>
+          <button
+            onClick={() => scrollToElement('contact')}
+            className="pf-hover border border-line-str text-ink font-mono text-[13px] font-medium px-6 py-3.5 rounded-lg"
+            aria-label="Scroll to contact section"
+          >
+            get_in_touch
+          </button>
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="flex justify-center mt-[72px] border border-line rounded-xl overflow-hidden max-w-[560px] mx-auto"
+        >
+          {stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className={`flex-1 py-[22px] px-3.5 ${index < stats.length - 1 ? 'border-r border-line' : ''}`}
+            >
+              <div className="text-[26px] font-bold text-accent-br">{stat.value}</div>
+              <div className="font-mono text-[10.5px] font-medium text-muted mt-1 tracking-[0.04em]">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </motion.div>
-    </section>
+    </header>
   )
 }
 

@@ -8,6 +8,7 @@ category: "Backend"
 tags: ["Tutorial", "Guía", "Ejemplo"]
 readTime: "3 min read"
 featured: false
+draft: true
 ---
 
 # Ejemplo: Cómo Crear un Nuevo Post

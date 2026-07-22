@@ -1,196 +1,119 @@
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import AnimatedBackground from './AnimatedBackground'
 
-const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef(null)
+const projects = [
+  {
+    title: 'CodeGuardians',
+    subtitle: 'Ford Motor Company',
+    featured: true,
+    description:
+      'AI-assisted code review integrating repository events, PR context and asynchronous LLM workflows with retrieval, validation and automated feedback loops.',
+    metrics: [
+      { value: '+30%', label: 'DEV EFFICIENCY' },
+      { value: 'Enterprise', label: 'SCALE' },
+    ],
+    tech: ['LLMs', 'Agentic Workflows', 'Python', 'GCP'],
+  },
+  {
+    title: 'ConstructAI',
+    subtitle: 'Multimodal RAG — Master’s',
+    featured: true,
+    description:
+      'Multimodal RAG automating construction cost estimation from visual blueprints and specs, with adaptive routing, reranking and reflection loops.',
+    metrics: [
+      { value: '0.92', label: 'PRECISION' },
+      { value: '+80%', label: 'FASTER BIDDING' },
+    ],
+    tech: ['CLIP', 'BGE-M3', 'OCR', 'MongoDB'],
+  },
+  {
+    title: 'CPAT',
+    subtitle: 'Oracle',
+    featured: false,
+    description:
+      'Cloud Pre-migration Analysis Tool — backend analysis flows, HTML reporting, CLI tooling and migration risk assessment. Co-architected AutoUpgrade automation.',
+    metrics: [
+      { value: '99.9%', label: 'RELIABILITY' },
+      { value: '-30%', label: 'ONBOARDING' },
+    ],
+    tech: ['Java', 'SQL', 'Oracle DB', 'Shell'],
+  },
+  {
+    title: 'DB Testing Platform',
+    subtitle: 'Oracle — Infrastructure',
+    featured: false,
+    description:
+      'Fully virtualized database testing platform improving validation throughput and accelerating release cycles across heterogeneous environments.',
+    metrics: [
+      { value: '+40%', label: 'VALIDATION' },
+      { value: 'Multi', label: 'PLATFORMS' },
+    ],
+    tech: ['Java', 'Docker', 'Jenkins', 'CI/CD'],
+  },
+]
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          // Stop observing once visible to improve performance
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
+const Projects = () => (
+  <motion.section
+    id="projects"
+    className="py-20"
+    aria-label="Projects section"
+    initial={{ opacity: 0, y: 34 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.12 }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+  >
+    <div className="font-mono text-[11px] font-medium tracking-[0.14em] text-accent-br mb-3.5">
+      {'// PORTFOLIO'}
+    </div>
+    <h2 className="m-0 mb-11 font-semibold text-[clamp(30px,4vw,44px)] leading-[1.05] tracking-[-0.03em] text-ink">
+      Featured projects
+    </h2>
 
-    const currentRef = ref.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.disconnect()
-      }
-    }
-  }, [])
-
-  const projects = [
-    {
-      title: "CodeGuardians — AI Code Review",
-      subtitle: "Ford Motor Company",
-      description: "AI-assisted code review platform integrating repository events, pull request context, review comments, and asynchronous LLM workflows. Agentic pipelines combine retrieval, context construction, validation, structured outputs, and automated feedback loops.",
-      technologies: ["LLMs", "Agentic Workflows", "Python", "AI Evaluation", "REST APIs", "GCP"],
-      metrics: [
-        { label: "Dev Efficiency", value: "+30%" },
-        { label: "Scale", value: "Enterprise" }
-      ],
-      featured: true,
-      gradient: "from-blue-500/20 to-purple-500/20"
-    },
-    {
-      title: "ConstructAI — Multimodal RAG",
-      subtitle: "Construction Cost Estimation — Master's Project",
-      description: "Production-grade multimodal RAG automating construction cost estimation from visual blueprints and technical specifications. OCR and multimodal embeddings with adaptive query routing, conditional reranking, reflection, and validation loops for hallucination control.",
-      technologies: ["CLIP", "BGE-M3", "LLMs", "OCR", "MongoDB", "Multi-Agent RAG"],
-      metrics: [
-        { label: "Precision", value: "0.92" },
-        { label: "F1-Score", value: "0.91" },
-        { label: "Faster Bidding", value: "+80%" }
-      ],
-      featured: true,
-      gradient: "from-purple-500/20 to-pink-500/20"
-    },
-    {
-      title: "Cloud Pre-migration Analysis Tool",
-      subtitle: "Oracle",
-      description: "Core contributor and owner of key CPAT capabilities — backend analysis flows, HTML reporting, CLI tooling, parameterized execution, and migration risk assessment. Co-architected an automation module within Oracle AutoUpgrade.",
-      technologies: ["Java", "SQL", "Oracle DB", "Shell", "Linux"],
-      metrics: [
-        { label: "Reliability", value: "99.9%" },
-        { label: "Onboarding Time", value: "-30%" }
-      ],
-      featured: false,
-      gradient: "from-cyan-500/20 to-blue-500/20"
-    },
-    {
-      title: "Database Testing Platform",
-      subtitle: "Oracle — Infrastructure",
-      description: "Fully virtualized database testing platform improving validation throughput, reducing feedback loops and accelerating release cycles across heterogeneous environments.",
-      technologies: ["Java", "Docker", "Jenkins", "CI/CD", "Automation"],
-      metrics: [
-        { label: "Validation", value: "+40%" },
-        { label: "Environments", value: "Multi-platform" }
-      ],
-      featured: false,
-      gradient: "from-emerald-500/20 to-cyan-500/20"
-    }
-  ]
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.98 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
-    }
-  }
-
-  return (
-    <section id="projects" ref={ref} className="py-24 bg-gray-800 relative overflow-hidden" aria-label="Projects section">
-      <AnimatedBackground variant="projects" />
-
-      <motion.div
-        variants={sectionVariants}
-        initial="hidden"
-        animate={isVisible ? "visible" : "hidden"}
-        className="max-w-6xl mx-auto px-6 relative z-10"
-      >
-        {/* Section Header */}
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          <span className="text-blue-400 text-sm font-medium tracking-wider uppercase mb-4 block">Portfolio</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Enterprise systems and AI solutions with measurable impact
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[18px]">
+      {projects.map((project) => (
+        <div
+          key={project.title}
+          className="pf-hover border border-line bg-surf rounded-2xl p-[26px] flex flex-col"
+        >
+          <div className="flex items-center gap-[9px] mb-1.5">
+            <h3 className="m-0 text-[19px] font-semibold tracking-[-0.01em] text-ink">
+              {project.title}
+            </h3>
+            {project.featured && (
+              <span className="font-mono text-[9.5px] font-semibold tracking-[0.06em] text-accent-br border border-line-str px-2 py-[3px] rounded-full">
+                FEATURED
+              </span>
+            )}
+          </div>
+          <div className="font-mono text-xs font-medium text-accent-br mb-3.5">
+            {project.subtitle}
+          </div>
+          <p className="m-0 mb-[18px] text-[13px] leading-[1.6] text-muted flex-1">
+            {project.description}
           </p>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <div className="space-y-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              variants={itemVariants}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className={`bg-gradient-to-br ${project.gradient} backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-blue-500/30 transition-all duration-300 group relative overflow-hidden ${
-                project.featured ? 'md:p-10' : ''
-              }`}
-            >
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500" />
-
-              <div className="relative z-10 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-                {/* Content */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    {project.featured && (
-                      <span className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400 text-xs font-medium rounded-full border border-blue-500/30">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-blue-400 text-sm mb-4">{project.subtitle}</p>
-
-                  <p className="text-gray-400 leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-gray-800/80 text-gray-300 text-sm rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-colors"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Metrics */}
-                <div className="flex md:flex-col gap-6 md:gap-4 md:min-w-[160px] md:text-right">
-                  {project.metrics.map((metric) => (
-                    <div key={metric.label} className="text-center md:text-right">
-                      <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                        {metric.value}
-                      </div>
-                      <div className="text-gray-500 text-sm">{metric.label}</div>
-                    </div>
-                  ))}
+          <div className="flex gap-5 py-3.5 border-t border-b border-line mb-4">
+            {project.metrics.map((metric) => (
+              <div key={metric.label}>
+                <div className="text-xl font-bold text-accent-br">{metric.value}</div>
+                <div className="font-mono text-[10px] font-medium text-muted mt-0.5">
+                  {metric.label}
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-[7px]">
+            {project.tech.map((tech) => (
+              <span
+                key={tech}
+                className="font-mono text-[11px] font-medium px-2.5 py-1 bg-chip rounded-[5px] text-ink"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
-      </motion.div>
-    </section>
-  )
-}
+      ))}
+    </div>
+  </motion.section>
+)
 
 export default Projects

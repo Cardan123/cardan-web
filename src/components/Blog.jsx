@@ -1,270 +1,281 @@
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState, useMemo } from 'react'
-import AnimatedBackground from './AnimatedBackground'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import BlogPost from './BlogPost'
 import { loadPosts, getCategories } from '../utils/loadPosts'
+import { formatDate } from '../utils/formatDate'
+
+const riseTransition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
 
 const Blog = () => {
-  const [isVisible, setIsVisible] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [selectedPost, setSelectedPost] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [posts, setPosts] = useState([])
-  const [categories, setCategories] = useState(['All'])
-  const ref = useRef(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All')
+  const progressRef = useRef(null)
 
-  // Cargar posts al montar el componente
-  useEffect(() => {
-    try {
-      const loadedPosts = loadPosts()
-      const loadedCategories = getCategories()
-      setPosts(loadedPosts)
-      setCategories(loadedCategories)
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error loading posts:', error)
-      }
-      // Mostrar mensaje de error al usuario si es necesario
-    }
-  }, [])
+  const posts = useMemo(
+    () => loadPosts().map((post, index) => ({ ...post, num: String(index + 1).padStart(2, '0') })),
+    []
+  )
+  const categories = useMemo(() => getCategories(), [])
+  const totalLabel = `${String(posts.length).padStart(2, '0')} ENTRIES`
+
+  // Reader state lives in the URL (?post=slug) so posts are linkable
+  const openSlug = searchParams.get('post')
+  const activeIndex = posts.findIndex((post) => post.slug === openSlug)
+  const activePost = activeIndex >= 0 ? posts[activeIndex] : null
+  const nextPost = activePost ? posts[(activeIndex + 1) % posts.length] : null
+
+  const openPost = (slug) => setSearchParams({ post: slug })
+  const closePost = () => setSearchParams({})
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
+    window.scrollTo(0, 0)
+  }, [openSlug])
 
-    const currentRef = ref.current
-    if (currentRef) {
-      observer.observe(currentRef)
+  // Reading progress — writes width directly to avoid re-renders on scroll
+  useEffect(() => {
+    const onScroll = () => {
+      const bar = progressRef.current
+      if (!bar) return
+      const doc = document.documentElement
+      const max = doc.scrollHeight - doc.clientHeight
+      const pct = max > 0 ? Math.min(100, (doc.scrollTop / max) * 100) : 0
+      bar.style.width = activePost ? `${pct}%` : '0%'
     }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [activePost])
 
-    return () => {
-      if (currentRef) {
-        observer.disconnect()
-      }
-    }
-  }, [])
-
-  // Memoizar filteredPosts para evitar recálculos innecesarios
   const filteredPosts = useMemo(() => {
-    return posts.filter(post => {
-      // Validar que el post tenga las propiedades necesarias
-      if (!post || !post.title || !post.excerpt) {
-        return false
-      }
-      
-      const matchesCategory = selectedCategory === 'All' || (post.category && post.category === selectedCategory)
-      const lowerSearchQuery = searchQuery.toLowerCase()
-      const matchesSearch = post.title.toLowerCase().includes(lowerSearchQuery) ||
-                            (post.excerpt && post.excerpt.toLowerCase().includes(lowerSearchQuery)) ||
-                            (post.tags && Array.isArray(post.tags) && post.tags.some(tag => tag && typeof tag === 'string' && tag.toLowerCase().includes(lowerSearchQuery)))
-      return matchesCategory && matchesSearch
+    const q = query.trim().toLowerCase()
+    return posts.filter((post) => {
+      if (!post || !post.title) return false
+      const okCategory = category === 'All' || post.category === category
+      const okQuery =
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        (post.excerpt && post.excerpt.toLowerCase().includes(q)) ||
+        (Array.isArray(post.tags) && post.tags.some((tag) => tag.toLowerCase().includes(q)))
+      return okCategory && okQuery
     })
-  }, [posts, selectedCategory, searchQuery])
+  }, [posts, query, category])
 
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-        staggerChildren: 0.1
-      }
-    }
-  }
+  const featured = filteredPosts.find((post) => post.featured) || null
+  const listPosts = featured
+    ? filteredPosts.filter((post) => post.slug !== featured.slug)
+    : filteredPosts
 
-  const itemVariants = {
-    hidden: { y: 40, opacity: 0, scale: 0.95 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-    }
-  }
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    })
+  const clearFilters = () => {
+    setQuery('')
+    setCategory('All')
   }
 
   return (
     <>
-      <section ref={ref} className="py-24 bg-gray-800 relative overflow-hidden" aria-label="Blog section">
-        <AnimatedBackground variant="projects" />
+      {/* Reading progress bar */}
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-[60] pointer-events-none">
+        <div ref={progressRef} className="h-full w-0 bg-accent-br transition-[width] duration-100 ease-linear" />
+      </div>
 
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isVisible ? "visible" : "hidden"}
-          className="max-w-7xl mx-auto px-6 relative z-10"
-        >
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <span className="text-blue-400 text-sm font-medium tracking-wider uppercase mb-4 block">Developer Blog</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Notes, Tutorials & Insights
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Sharing knowledge, experiences, and lessons learned as an AI engineer
-            </p>
-          </motion.div>
+      {activePost ? (
+        <BlogPost
+          post={activePost}
+          totalLabel={totalLabel}
+          nextPost={nextPost}
+          onOpen={openPost}
+          onClose={closePost}
+        />
+      ) : (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          {/* Masthead */}
+          <header className="pt-20 pb-10 flex justify-between items-end gap-[30px] flex-wrap">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={riseTransition}
+                className="font-mono text-[11px] font-medium tracking-[0.16em] text-accent-br mb-[22px]"
+              >
+                {'// FIELD NOTES — '}
+                {totalLabel}
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...riseTransition, delay: 0.08 }}
+                className="m-0 font-semibold text-[clamp(46px,8vw,96px)] leading-[0.92] tracking-[-0.045em] text-ink"
+              >
+                The Log
+              </motion.h1>
+            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...riseTransition, delay: 0.16 }}
+              className="m-0 max-w-[340px] text-[15px] leading-[1.6] text-muted"
+            >
+              Notes, tutorials and lessons learned building production-grade AI systems, cloud
+              platforms and developer tooling.
+            </motion.p>
+          </header>
 
-          {/* Search and Filter Bar */}
-          <motion.div variants={itemVariants} className="mb-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4">
-              {/* Search */}
-              <div className="mb-4">
-                <div className="relative">
-                  <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  <input
-                    type="text"
-                    placeholder="Search posts, tags, or topics..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors"
-                    aria-label="Search blog posts"
-                  />
-                </div>
-              </div>
-
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
+          {/* Controls */}
+          <div className="flex items-center justify-between gap-[18px] flex-wrap py-[18px] border-t border-line-str">
+            <div className="flex flex-wrap gap-5">
+              {categories.map((cat) => {
+                const active = cat === category
+                return (
                   <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700/50'
+                    key={cat}
+                    onClick={() => setCategory(cat)}
+                    className={`cursor-pointer bg-transparent border-0 border-b-2 border-solid p-0 pb-[5px] font-mono text-xs font-medium tracking-[0.04em] transition-colors ${
+                      active ? 'text-accent-br border-accent' : 'text-muted border-transparent hover:text-accent-br'
                     }`}
                   >
-                    {category}
+                    {cat}
                   </button>
-                ))}
-              </div>
+                )
+              })}
             </div>
-          </motion.div>
-
-          {/* Posts Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPosts.map((post) => (
-              <motion.article
-                key={post.slug || post.id}
-                variants={itemVariants}
-                whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                onClick={() => setSelectedPost(post)}
-                className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 cursor-pointer hover:border-blue-500/30 transition-all duration-300 group relative overflow-hidden"
-              >
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500" />
-
-                <div className="relative z-10">
-                  {/* Category and Featured Badge */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full border border-blue-500/30">
-                      {post.category}
-                    </span>
-                    {post.featured && (
-                      <span className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400 text-xs font-medium rounded-full border border-blue-500/30">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Meta Info */}
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                    <span>{formatDate(post.date)}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-
-                  {/* Tags */}
-                  {post.tags && Array.isArray(post.tags) && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.slice(0, 3).map((tag, index) => (
-                        <span
-                          key={`${tag}-${index}`}
-                          className="px-2 py-1 bg-gray-800/80 text-gray-400 text-xs rounded border border-gray-700/50"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                      {post.tags.length > 3 && (
-                        <span className="px-2 py-1 text-gray-500 text-xs">
-                          +{post.tags.length - 3} more
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Read More Indicator */}
-                  <div className="mt-4 flex items-center text-blue-400 text-sm font-medium group-hover:gap-2 transition-all">
-                    <span>Read more</span>
-                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
+            <div className="relative min-w-[220px]">
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 font-mono text-[13px] font-medium text-muted">
+                /
+              </span>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="search..."
+                aria-label="Search blog posts"
+                className="w-full bg-transparent border-0 border-b border-solid border-line pl-[18px] pr-1 py-2 text-ink font-mono text-[13px] font-medium transition-colors focus:outline-none focus:border-accent"
+              />
+            </div>
           </div>
 
-          {/* Empty State */}
-          {filteredPosts.length === 0 && posts.length === 0 && (
-            <motion.div variants={itemVariants} className="text-center py-12">
-              <p className="text-gray-400 text-lg mb-2">No posts loaded.</p>
-              <p className="text-gray-500 text-sm">Check console for errors. Make sure dependencies are installed: npm install</p>
-            </motion.div>
+          {/* Featured post */}
+          {featured && (
+            <Link to={`/blog?post=${featured.slug}`} className="block text-inherit no-underline">
+              <article className="pf-feat cursor-pointer mt-[34px] mb-5 border border-line-str rounded-[22px] bg-gradient-to-br from-surf to-bg overflow-hidden relative">
+                <div
+                  aria-hidden="true"
+                  className="absolute -top-[60px] -right-10 w-60 h-60 rounded-full blur-[40px] pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(circle, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%)',
+                  }}
+                />
+                <div className="relative px-[42px] pt-10 pb-[38px] max-sm:px-6">
+                  <div className="flex items-center gap-3 mb-[26px]">
+                    <span className="font-mono text-[10px] font-semibold tracking-[0.1em] text-on-accent bg-accent px-[11px] py-[5px] rounded-full">
+                      ★ FEATURED
+                    </span>
+                    <span className="font-mono text-[11px] font-medium text-muted">
+                      {featured.category}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-[auto_1fr] gap-8 items-start max-sm:grid-cols-1 max-sm:gap-4">
+                    <div className="font-mono font-semibold text-[clamp(48px,9vw,110px)] leading-[0.85] tracking-[-0.04em] text-accent-br opacity-90">
+                      {featured.num}
+                    </div>
+                    <div>
+                      <h2 className="m-0 font-semibold text-[clamp(28px,4.2vw,46px)] leading-[1.04] tracking-[-0.03em] text-ink">
+                        {featured.title}
+                      </h2>
+                      <p className="mt-5 mb-[26px] max-w-[620px] text-base leading-[1.65] text-muted">
+                        {featured.excerpt}
+                      </p>
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <span className="inline-flex items-center gap-[9px] font-mono text-[13px] font-semibold text-accent-br">
+                          read_article
+                          <span className="pf-featarrow inline-block">↗</span>
+                        </span>
+                        <span className="font-mono text-xs font-medium text-muted">
+                          {formatDate(featured.date)} · {featured.readTime}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </Link>
           )}
-          {filteredPosts.length === 0 && posts.length > 0 && (
-            <motion.div variants={itemVariants} className="text-center py-12">
-              <p className="text-gray-400 text-lg">No posts found matching your criteria.</p>
-              <button
-                onClick={() => {
-                  setSearchQuery('')
-                  setSelectedCategory('All')
-                }}
-                className="mt-4 text-blue-400 hover:text-blue-300 transition-colors"
-              >
-                Clear filters
-              </button>
-            </motion.div>
-          )}
-        </motion.div>
-      </section>
 
-      {/* Post Modal */}
-      {selectedPost && (
-        <BlogPost post={selectedPost} onClose={() => setSelectedPost(null)} />
+          {/* Index list */}
+          {listPosts.length > 0 && (
+            <div className="mt-[30px]">
+              <div className="font-mono text-[11px] font-medium tracking-[0.14em] text-muted mb-1.5">
+                {'// ALL ENTRIES'}
+              </div>
+              {listPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  to={`/blog?post=${post.slug}`}
+                  className="pf-row text-inherit no-underline"
+                >
+                  <div className="font-mono text-[15px] font-semibold tracking-[0.02em] text-accent-br">
+                    {post.num}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <span className="font-mono text-[10px] font-medium tracking-[0.06em] text-muted border border-line px-[9px] py-[3px] rounded-full">
+                        {post.category}
+                      </span>
+                      <span className="font-mono text-[11px] font-medium text-muted">
+                        {formatDate(post.date)}
+                      </span>
+                    </div>
+                    <h3 className="pf-rowtitle m-0 mb-2 font-semibold text-[clamp(20px,2.6vw,28px)] leading-[1.15] tracking-[-0.02em] text-ink transition-colors">
+                      {post.title}
+                    </h3>
+                    {Array.isArray(post.tags) && post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {post.tags.map((tag) => (
+                          <span key={tag} className="font-mono text-[11px] font-medium text-muted">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col items-end gap-3.5">
+                    <span className="font-mono text-[11px] font-medium text-muted whitespace-nowrap">
+                      {post.readTime}
+                    </span>
+                    <span className="pf-arrow w-11 h-11 rounded-full border border-line-str flex items-center justify-center text-lg text-ink">
+                      →
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Empty state */}
+          {filteredPosts.length === 0 && (
+            <div className="text-center pt-[70px] pb-[90px]">
+              <p className="m-0 mb-4 text-base text-muted">No entries match your search.</p>
+              <button
+                onClick={clearFilters}
+                className="cursor-pointer font-mono text-xs font-semibold text-accent-br bg-transparent border border-line-str px-[18px] py-2.5 rounded-lg"
+              >
+                clear_filters()
+              </button>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="mt-[50px] pt-[70px] pb-[50px] border-t border-line flex justify-between flex-wrap gap-2.5">
+            <span className="font-mono text-[11px] font-medium text-muted">
+              © 2026 CARLOS_VILLENA
+            </span>
+            <span className="font-mono text-[11px] font-medium text-muted">Ember Copper system</span>
+          </div>
+        </motion.div>
       )}
     </>
   )
 }
 
 export default Blog
-

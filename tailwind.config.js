@@ -6,19 +6,32 @@ export default {
   ],
   theme: {
     extend: {
+      // Ember Copper tokens — CSS variables switched by the .light class on <html>
+      colors: {
+        bg: 'var(--bg)',
+        surf: 'var(--surf)',
+        surf2: 'var(--surf2)',
+        ink: 'var(--text)',
+        muted: 'var(--muted)',
+        accent: 'var(--accent)',
+        'accent-br': 'var(--accent-br)',
+        'on-accent': 'var(--on-accent)',
+        line: 'var(--border)',
+        'line-str': 'var(--border-str)',
+        chip: 'var(--chip)',
+        hair: 'var(--hair)',
+      },
+      fontFamily: {
+        sans: ['Space Grotesk', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
       animation: {
-        'fade-in-up': 'fadeInUp 0.8s ease-out',
-        'fade-in': 'fadeIn 1s ease-out',
-        'pulse-slow': 'pulse 3s infinite',
+        blink: 'blink 1.6s infinite',
       },
       keyframes: {
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+        blink: {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0.2' },
         },
       },
     },

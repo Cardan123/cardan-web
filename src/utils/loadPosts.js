@@ -39,6 +39,11 @@ export const loadPosts = () => {
       // Convertir tags de string a array si es necesario
       const tags = Array.isArray(data.tags) ? data.tags : (data.tags ? data.tags.split(',').map(t => t.trim()) : [])
 
+      // Omitir borradores (draft: true en el frontmatter)
+      if (data.draft) {
+        continue
+      }
+
       // Validar que los datos requeridos estén presentes
       if (!data.title || !data.date) {
         if (process.env.NODE_ENV === 'development') {
